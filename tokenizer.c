@@ -21,6 +21,12 @@ struct Token {
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <inttypes.h>
+#include <fcntl.h>
 
 Token* new_token(TokenKind kind, Token* next, int val, char* str){
   Token* pnew_tok = malloc(sizeof(Token));
@@ -32,62 +38,68 @@ Token* new_token(TokenKind kind, Token* next, int val, char* str){
 }
 
 Token* tokenizer(char* source_file){
-  FILE* source = fopen(source_file, "r");
+  unsigned char buf[4096];
 
-  char target[MAX_TOKEN_LENGTH];
+  int fd = open(source_file, O_RDONLY);
+  int tmp_errno = errno;
+  if(fd < 0){
+    fprintf(stderr, "cannot open %s: %s\n", source_file, strerror(tmp_errno));
+    exit(1);
+  }
+  int nread = read(fd, buf, sizeof(buf));
 
-  memset(target, 0, MAX_TOKEN_LENGTH);
-  
-  fread(target,
-	sizeof(char),
-	sizeof(target) / sizeof(target[0]),
-	source);
-
-  // tokenizing here
-  char* p = target;
+  char* p = (char*)buf;
   Token* ptop = NULL;
   Token* cur = ptop;
-  while(p){
+  for(int i = 1; i <= nread-1; i++){
     if(isspace(*p)){
       p++;
-      
-    }else if(isdigit(*p)){
+      continue;
+    }
+
+    if(isdigit(*p)){
       while(cur){
 	cur = cur->next;
       }
-      int val = strtol(p, &p, 10);      
+      int val = strtol(p, &p, 10);
       cur = new_token(TK_NUM, NULL, val, NULL);
       printf("%d\n", cur->val);
-      //p++;
-      
-    }else if(*p == '*'){
+      continue;
+    }
+
+    if(*p == '*'){
       while(cur){
 	cur = cur->next;
       }
       cur = new_token(TK_RESERVED, NULL, 0, "*");
       printf("%s\n", cur->str);
       p++;
-      
-    }else if(*p == '/'){
+      continue;
+    }
+
+    if(*p == '/'){
       while(cur){
 	cur = cur->next;
       }
       cur = new_token(TK_RESERVED, NULL, 0, "/");
       printf("%s\n", cur->str);
       p++;
-     
-    }else if(p == NULL){
-      break;
-      
-    }else{
-      fprintf(stderr, "invalid token: %c\n", *p);
-      exit(1);
+      continue;
     }
+
+    if(*p == EOF){
+      break;
+    }
+
+    fprintf(stderr, "invalid token: %c\n", *p);
+    exit(1);
   }
 
-  //return 0; //　後で return ptopに直し，Parserの帰り型をToken＊にする
+  close(fd);
+  return ptop;
 }
 
 int main(){
   tokenizer("source");
 }
+
