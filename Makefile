@@ -1,7 +1,7 @@
 CC=clang
 CFLAGS=-Wall -Wextra -o
 
-all:mycalc
+all:clean mycalc
 	./mycalc source && $(CC) -o assem assem.s
 
 mycalc:mycalc.c

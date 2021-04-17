@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-echo "77" > source
+echo " 7 * 5 /3" > source
 make
 ./assem
 # echo $?
