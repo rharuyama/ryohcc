@@ -11,8 +11,6 @@ struct Node{
   int val;
 };
 
-Node* ntop;
-
 Node* new_node(NodeKind kind, Node* lhs, Node* rhs){
   Node* newNode = calloc(1, sizeof(Node));
   newNode->kind = kind;
@@ -34,19 +32,19 @@ Node* fun(Token* cur){
   return newNode3;
 }
 
-void parser(){
-  fprintf(stderr, "I CAN SEE GLOBAL VAR top! WORKS FINE! %d\n", top->val);
-
+Node* parser(){
   Token* cur = top;
+
   Node* newNode = malloc(sizeof(Node));
   newNode->kind = ND_NUM;
   int val = cur->val; // これがないとセグフォになる（なぜ？）
   newNode->val = val;
 
-  return; // 以降でコンパイルは通るがCodegenがうまくいかない（次，なぜか調べる）
-  //  cur = top->next;
+  cur = cur->next;
 
   Node* newNode2 = new_node(ND_MUL, newNode, fun(cur));
+
+  return newNode2;
 }
 
 

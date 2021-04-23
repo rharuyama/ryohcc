@@ -18,8 +18,8 @@ int main(int argc, char** argv){
   show_tokens();
   
   // parser
-  //parser(); // Node* ntop に構文木のRootがセットされる
+  Node* root = parser(); 
 
-  printf("   mov rax, %d\n", top->val);
+  printf("   mov rax, %d\n", root->lhs->val);
   printf("   ret\n");
 }
