@@ -1,10 +1,10 @@
-#include "tokenizer.c"
-#include "parser.c"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+
+#include "tokenizer.c"
+#include "parser.c"
 
 int main(int argc, char** argv){
   char* input = argv[1]; // "5 * 20"
