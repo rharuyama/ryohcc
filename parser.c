@@ -42,7 +42,7 @@ Node* parser(){
 
   cur = cur->next;
 
-  Node* newNode2 = new_node(ND_MUL, newNode, fun(cur));
+  Node* newNode2 = new_node(ND_MUL, newNode, fun(cur->next));
 
   return newNode2;
 }

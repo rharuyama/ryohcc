@@ -7,6 +7,22 @@
 #include "tokenizer.c"
 #include "parser.c"
 
+void codegen(Node* root){
+  if(root->kind == ND_NUM){
+    printf("   push %d\n\n", root->val);
+
+  }else if(root->kind == ND_MUL){
+    codegen(root->lhs);
+    codegen(root->rhs);
+    printf("   pop rdi\n");
+    printf("   pop rax\n");
+    printf("   imul rax, rdi\n");
+    printf("   push rax\n\n");
+  }else{
+    printf("// ERROR HERE in codegen");
+  }
+}
+
 int main(int argc, char** argv){
   char* input = argv[1]; // "5 * 20"
 
@@ -20,6 +36,8 @@ int main(int argc, char** argv){
   // parser
   Node* root = parser(); 
 
-  printf("   mov rax, %d\n", root->lhs->val);
+  codegen(root);
+
+  printf("   pop rax\n");
   printf("   ret\n");
 }

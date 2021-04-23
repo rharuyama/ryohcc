@@ -4,5 +4,8 @@ ryohcc:
 target: ryohcc
 	clang -o .target target.s
 
-test: ryohcc
+test: ryohcc clean
 	bash test.sh
+
+clean:
+	rm -rf .ryohcc .target *.s
