@@ -1,61 +1,10 @@
+#include "tokenizer.c"
+#include "parser.c"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-
-typedef enum{
-  TK_RESERVED,
-  TK_NUM,
-  TK_EOF,
-}TokenKind;
-
-typedef struct Token Token;
-struct Token{
-  int val;
-  char* data;
-  TokenKind kind;
-  Token* next;
-};
-
-Token* top;
-
-void tokenizer(char* input){
-  // tokenizer
-  char* p = input;
-  Token* newTok = malloc(sizeof(Token));
-  Token* cur = newTok;
-  top = newTok;
-  newTok->val = strtol(p, &p, 10);
-  newTok->kind = TK_NUM;
-
-  while(1){
-    if(isspace(*p)){
-      p++;
-    }else{
-      break;
-    }
-  }
-
-  Token* newTok2 = malloc(sizeof(Token));
-  newTok2->data = "*";
-  newTok2->kind = TK_RESERVED;
-  cur->next = newTok2;
-  cur = cur->next;
-  p++;
-
-  while(1){
-    if(isspace(*p)){
-      p++;
-    }else{
-      break;
-    }
-  }
-
-  Token* newTok3 = malloc(sizeof(Token));
-  newTok3->val = strtol(p, &p, 10);
-  newTok3->kind = TK_RESERVED;
-  cur->next = newTok3;
-  cur = cur->next;
-}
+#include <string.h>
 
 int main(int argc, char** argv){
   char* input = argv[1]; // "5 * 20"
@@ -64,18 +13,11 @@ int main(int argc, char** argv){
   printf(".globl main\n");
   printf("main:\n");
 
-  tokenizer(input);
+  tokenizer(input); // Token* top にトークンの列がセットされる
 
+  // parser
+  parser(); // Node* ntop に構文木のRootがセットされる
   
   printf("   mov rax, %d\n", top->val);
   printf("   ret\n");
-  
-  // print Tokens for testing
-  fprintf(stderr, "%d ", top->val);
-  top = top->next;
-  fprintf(stderr, "%s ", top->data);
-  top = top->next;
-  fprintf(stderr, "%d ", top->val);
-  // top = top->next; // SIGBUS
-  fprintf(stderr, "\n");
 }
