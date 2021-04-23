@@ -16,17 +16,13 @@ struct Token{
   Token* next;
 };
 
-int main(int argc, char** argv){
-  char* input = argv[1]; // "5 * 20"
+Token* top;
 
-  printf(".intel_syntax noprefix\n");
-  printf(".globl main\n");
-  printf("main:\n");
-
+void tokenizer(char* input){
   // tokenizer
   char* p = input;
   Token* newTok = malloc(sizeof(Token));
-  Token* top = newTok;
+  top = newTok;
   newTok->val = strtol(p, &p, 10);
   newTok->kind = TK_NUM;
 
@@ -56,7 +52,21 @@ int main(int argc, char** argv){
   newTok2->next = newTok3;
   newTok3->val = strtol(p, &p, 10);
   newTok3->kind = TK_RESERVED;
- 
+}
+
+int main(int argc, char** argv){
+  char* input = argv[1]; // "5 * 20"
+
+  printf(".intel_syntax noprefix\n");
+  printf(".globl main\n");
+  printf("main:\n");
+
+  tokenizer(input);
+
+  
+  printf("   mov rax, %d\n", top->val);
+  printf("   ret\n");
+  
   // print Tokens for testing
   fprintf(stderr, "%d ", top->val);
   top = top->next;
@@ -65,8 +75,4 @@ int main(int argc, char** argv){
   fprintf(stderr, "%d ", top->val);
   // top = top->next; // SIGBUS
   fprintf(stderr, "\n");
-
-  printf("   mov rax, %d\n", newTok->val);
-
-  printf("   ret\n");
 }
