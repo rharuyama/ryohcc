@@ -22,6 +22,7 @@ void tokenizer(char* input){
   // tokenizer
   char* p = input;
   Token* newTok = malloc(sizeof(Token));
+  Token* cur = newTok;
   top = newTok;
   newTok->val = strtol(p, &p, 10);
   newTok->kind = TK_NUM;
@@ -35,9 +36,10 @@ void tokenizer(char* input){
   }
 
   Token* newTok2 = malloc(sizeof(Token));
-  newTok->next = newTok2;
   newTok2->data = "*";
   newTok2->kind = TK_RESERVED;
+  cur->next = newTok2;
+  cur = cur->next;
   p++;
 
   while(1){
@@ -49,9 +51,10 @@ void tokenizer(char* input){
   }
 
   Token* newTok3 = malloc(sizeof(Token));
-  newTok2->next = newTok3;
   newTok3->val = strtol(p, &p, 10);
   newTok3->kind = TK_RESERVED;
+  cur->next = newTok3;
+  cur = cur->next;
 }
 
 int main(int argc, char** argv){
