@@ -38,17 +38,17 @@ Token* new_token(TokenKind kind, Token* next, int val, char* str){
 }
 
 Token* tokenizer(char* source_file){
-  unsigned char buf[4096];
+  char buf[4096];
 
   int fd = open(source_file, O_RDONLY);
   int tmp_errno = errno;
   if(fd < 0){
-    fprintf(stderr, "cannot open %s: %s\n", source_file, strerror(tmp_errno));
+    fprintf(stderr, "cannot open rrr %s: %s\n", source_file, strerror(tmp_errno));
     exit(1);
   }
   int nread = read(fd, buf, sizeof(buf));
 
-  char* p = (char*)buf;
+  char* p = buf;
   Token* ptop = NULL;
   Token* cur = ptop;
   for(int i = 1; i <= nread-1; i++){
@@ -95,11 +95,8 @@ Token* tokenizer(char* source_file){
     exit(1);
   }
 
-  close(fd);
+  // close(fd);
+  printf("tokenize done.\n");
   return ptop;
-}
-
-int main(){
-  tokenizer("source");
 }
 

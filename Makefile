@@ -1,14 +1,14 @@
 CC=clang
-CFLAGS=-Wall -Wextra -o
+CFLAGS=-Wall -Wextra -g -o 
 
 all:clean mycalc
-	./mycalc source && $(CC) -o assem assem.s
+	./mycalc.out source && $(CC) -o assem.out assem.s
 
 mycalc:mycalc.c
-	$(CC) $(CFLAGS) mycalc mycalc.c
+	$(CC) $(CFLAGS) mycalc.out mycalc.c
 
 
 clean:
-	rm -rf assem* mycalc 
+	rm -rf assem* *.out
 
 .PHONY: clean
