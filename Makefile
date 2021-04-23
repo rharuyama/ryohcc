@@ -1,5 +1,5 @@
 ryohcc:
-	clang -o .ryohcc ryohcc.c
+	clang -o .ryohcc ryohcc.c -g
 
 target: ryohcc
 	clang -o .target target.s

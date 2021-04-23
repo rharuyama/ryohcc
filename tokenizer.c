@@ -14,35 +14,69 @@ struct Token{
 
 Token* top;
 
+bool at_eof(Token* cur){
+  if(cur->kind == TK_EOF){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+void show_tokens(){
+  Token* cur = top;
+  fprintf(stderr, "--> %d\n", cur->val);
+  cur = cur->next;
+
+  while(1){
+    if(cur->kind == TK_RESERVED){
+      fprintf(stderr, "--> %s\n", cur->data);
+      cur = cur->next;
+      continue;
+    }
+
+    if(cur->kind == TK_NUM){
+      fprintf(stderr, "--> %d\n", cur->val);
+      cur = cur->next;
+      continue;
+    }
+
+    if(cur->kind == TK_EOF){
+      fprintf(stderr, "--> EOF\n");
+      break;
+    }
+  }
+}
+
+Token* new_token(TokenKind kind, Token* cur, char* data){
+  Token* newTok = calloc(1, sizeof(Token));
+  newTok->kind = kind;
+  newTok->data = data;
+  cur->next = newTok;
+  return newTok;
+}
+
 void tokenizer(char* p){
   Token* newTok = malloc(sizeof(Token));
-  Token* cur = newTok;
-  top = newTok;
   newTok->val = strtol(p, &p, 10);
-  fprintf(stderr, "%d\n", newTok->val);
   newTok->kind = TK_NUM;
+
+  Token* cur = newTok;
+  top = cur;
 
   while(1){
     if(isspace(*p)){
       p++;
       continue;     
     }else if(*p == '*'){
-      Token* newTok2 = malloc(sizeof(Token));
-      newTok2->data = "*";
-      fprintf(stderr, "%s\n", newTok2->data);
-      newTok2->kind = TK_RESERVED;
-      cur->next = newTok2;
-      cur = cur->next;
+      char* times = "*";
+      cur = new_token(TK_RESERVED, cur, times);
       p++;
     }else if(isdigit(*p)){
-      Token* newTok3 = malloc(sizeof(Token));
-      newTok3->val = strtol(p, &p, 10);
-      fprintf(stderr, "%d\n", newTok3->val);
-      newTok3->kind = TK_NUM;
-      cur->next = newTok3;
-      cur = cur->next;
+      cur = new_token(TK_NUM, cur, p);
+      cur->val = strtol(p, &p, 10);
     }else{
       // ひとまず上記以外のパターンは無視するが，これで良いのだろうか？
+      cur = new_token(TK_EOF, cur, "\0");
       break;
     }
   }

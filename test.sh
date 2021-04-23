@@ -23,6 +23,7 @@ assert(){
 assert "1" "1"
 assert "42" "42"
 assert "5 * 20" 5
+assert "5 * 20 * 349" 5
 #assert "1+2" "3"
 
 echo Done

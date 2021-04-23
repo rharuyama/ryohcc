@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "tokenizer.c"
 #include "parser.c"
@@ -14,10 +15,11 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   tokenizer(input); // Token* top にトークンの列がセットされる
-
-  // parser
-  parser(); // Node* ntop に構文木のRootがセットされる
+  show_tokens();
   
+  // parser
+  //parser(); // Node* ntop に構文木のRootがセットされる
+
   printf("   mov rax, %d\n", top->val);
   printf("   ret\n");
 }
