@@ -1,6 +1,27 @@
 #!/bin/bash
-set -e
-echo " 7 * 5 /3" > source
-make
-./assem
-# echo $?
+
+assert(){
+    input="$1"
+    expected="$2"
+
+    # 自作のコンパイラでのコンパイル結果をtarget.sに出力
+     ./.ryohcc "$input" > target.s 
+    
+    # 出力したアセンブリ言語を実行
+    clang -o .target target.s
+    ./.target
+    actual="$?"
+
+    if [ "$actual" == "$expected" ]; then
+	echo "$input => $actual"
+    else
+	echo "$input => $expected expected, but got $actual"
+	exit 1
+    fi   
+}
+
+assert "0" "0"
+assert "42" "42"
+#assert "1+2" "3"
+
+echo Done

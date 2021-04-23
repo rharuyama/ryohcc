@@ -1,14 +1,8 @@
-CC=clang
-CFLAGS=-Wall -Wextra -o
+ryohcc:
+	clang -o .ryohcc ryohcc.c
 
-all:clean mycalc
-	./mycalc source && $(CC) -o assem assem.s
+target: ryohcc
+	clang -o target target.s
 
-mycalc:mycalc.c
-	$(CC) $(CFLAGS) mycalc mycalc.c
-
-
-clean:
-	rm -rf assem* mycalc 
-
-.PHONY: clean
+test: ryohcc
+	bash test.sh
