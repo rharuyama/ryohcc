@@ -26,7 +26,7 @@ Node* new_node_num(NodeKind kind, int val){
   return newNode;
 }
 
-Node* fun(Token* cur){
+Node* primary(Token* cur){
   int val = cur->val;
   Node* newNode3 = new_node_num(ND_NUM, val);
   return newNode3;
@@ -35,16 +35,19 @@ Node* fun(Token* cur){
 Node* parser(){
   Token* cur = top;
 
-  Node* newNode = malloc(sizeof(Node));
-  newNode->kind = ND_NUM;
-  int val = cur->val; // これがないとセグフォになる（なぜ？）
-  newNode->val = val;
+  Node* newNode = primary(cur); // 6
 
-  cur = cur->next;
+  // if(cur->next->kind == TK_RESERVED && cur->next->data == '*')
 
-  Node* newNode2 = new_node(ND_MUL, newNode, fun(cur->next));
+  cur = cur->next; // *
 
-  return newNode2;
+  Node* tmp_root = new_node(ND_MUL, newNode, primary(cur = cur->next)); // 5
+
+  cur = cur->next; // * 
+
+  Node* tmp_root2 = new_node(ND_MUL, tmp_root, primary(cur->next));  // 4
+
+  return tmp_root2;
 }
 
 

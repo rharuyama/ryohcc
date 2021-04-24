@@ -10,5 +10,12 @@ main:
    imul rax, rdi
    push rax
 
+   push 4
+
+   pop rdi
+   pop rax
+   imul rax, rdi
+   push rax
+
    pop rax
    ret
