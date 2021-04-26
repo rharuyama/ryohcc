@@ -26,5 +26,8 @@ assert "6 * 5" 30
 assert "6*5*4" 120
 assert "6*5*4*1" 120 # 1~255の範囲
 assert " 1 * 2 * 2 *1 * 1 *3*  1 * 4 * 4" 192
+assert "35 / 5" 7
+assert "75 / 5 / 3" 5
+assert "6 * 5 / 5/3" 2
 
 echo Done

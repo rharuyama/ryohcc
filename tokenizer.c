@@ -66,14 +66,22 @@ void tokenizer(char* p){
   while(1){
     if(isspace(*p)){
       p++;
-      continue;     
+      continue;
+      
     }else if(*p == '*'){
       char* times = "*";
       cur = new_token(TK_RESERVED, cur, times);
       p++;
+      
+    }else if(*p == '/'){
+      char* div = "/";
+      cur = new_token(TK_RESERVED, cur, div);
+      p++;
+      
     }else if(isdigit(*p)){
       cur = new_token(TK_NUM, cur, p);
       cur->val = strtol(p, &p, 10);
+      
     }else{
       // ひとまず上記以外のパターンは無視するが，これで良いのだろうか？
       cur = new_token(TK_EOF, cur, "\0");

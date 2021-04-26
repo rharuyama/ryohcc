@@ -1,5 +1,6 @@
 typedef enum{
   ND_MUL,
+  ND_DIV,
   ND_NUM,
 }NodeKind;
 
@@ -38,12 +39,21 @@ Node* mul(Token* cur){
   while(1){
     if(cur->next->kind == TK_EOF){
       return node;
-    }else if(cur->next->kind == TK_RESERVED ||
-	     strcmp(cur->next->data, "*")){
+      
+    }else if(cur->next->kind == TK_RESERVED &&
+	     strcmp(cur->next->data, "*") == 0){
       cur = cur->next;
       Node* rhs = primary(cur->next);
       node = new_node(ND_MUL, node, rhs);
       cur = cur->next;
+      
+    }else if(cur->next->kind == TK_RESERVED &&
+	     strcmp(cur->next->data, "/") == 0){
+      cur = cur->next;
+      Node* rhs = primary(cur->next);
+      node = new_node(ND_DIV, node, rhs);
+      cur = cur->next;
+      
     }else{
       fprintf(stderr, "ERROR in mul");
       return NULL;

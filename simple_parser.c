@@ -29,13 +29,21 @@ Node* mul(char* p){
   while(1){
     if(strlen(p) == 1){
       return node;
+      
     }else if(*(p + 1) == '*'){
       p++; // 6 * <-- p
       Node* rhs = primary(p + 1); 
       node = new_node(*p, node, rhs);      
       p++; // 6 * 5 <-- p
+      
+    }else if(*(p + 1) == '/'){
+      p++;
+      Node* rhs = primary(p + 1);
+      node = new_node(*p, node, rhs);
+      p++;
+      
     }else{
-      fprintf(stderr, "ERROR");
+      fprintf(stderr, "ERROR\n");
       return NULL;
     }
   }

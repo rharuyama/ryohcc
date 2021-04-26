@@ -18,9 +18,48 @@ void codegen(Node* root){
     printf("   pop rax\n");
     printf("   imul rax, rdi\n");
     printf("   push rax\n\n");
+    
+  }else if(root->kind == ND_DIV){
+    codegen(root->lhs);
+    codegen(root->rhs);
+    printf("   pop rdi\n");
+    printf("   pop rax\n");
+    printf("   cqo\n");
+    printf("   idiv rax, rdi\n");
+    printf("   push rax\n\n");
+    
   }else{
     printf("// ERROR HERE in codegen");
   }
+}
+
+void dump_as_Sexp(Node* root){
+  if(root->kind == ND_NUM){
+    fprintf(stderr, "%d ", root->val);
+    
+  }else if(root->kind == ND_MUL){
+    fprintf(stderr, "(");
+    fprintf(stderr, "* ");
+    dump_as_Sexp(root->lhs);
+    dump_as_Sexp(root->rhs);
+    fprintf(stderr, ") ");
+    
+  }else if(root->kind == ND_DIV){
+    fprintf(stderr, "(");
+    fprintf(stderr, "/ ");
+    dump_as_Sexp(root->lhs);
+    dump_as_Sexp(root->rhs);
+    fprintf(stderr, ") ");
+    
+  }else{
+    fprintf(stderr, "ERROR in dump_as_Sexp");    
+  }
+}
+
+void dump_test(Node* root){
+  fprintf(stderr, "--------------------------\n");
+  dump_as_Sexp(root);
+  fprintf(stderr, "\n--------------------------\n");
 }
 
 int main(int argc, char** argv){
@@ -34,7 +73,9 @@ int main(int argc, char** argv){
 
   // parser
   Node* root = parser();
- 
+
+  dump_test(root);
+  
   codegen(root);
 
   printf("   pop rax\n");
