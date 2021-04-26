@@ -24,9 +24,21 @@ Node* primary(char* p){
 }
 
 Node* mul(char* p){
-  Node* lhs = primary(p);
+  Node* node = primary(p); // 6 <-- p
 
-  return lhs;
+  while(1){
+    if(strlen(p) == 1){
+      return node;
+    }else if(*(p + 1) == '*'){
+      p++; // 6 * <-- p
+      Node* rhs = primary(p + 1); 
+      node = new_node(*p, node, rhs);      
+      p++; // 6 * 5 <-- p
+    }else{
+      fprintf(stderr, "ERROR");
+      return NULL;
+    }
+  }
 }
 
 void print_tree(Node* node){
@@ -38,7 +50,7 @@ void print_tree(Node* node){
   printf("%c ", node->c);
   print_tree(node->lhs);
   print_tree(node->rhs);
-  printf(")");
+  printf(") ");
 }
 
 int main(int argc, char** argv){
