@@ -31,7 +31,7 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   tokenizer(input); // Token* top にトークンの列がセットされる
-  
+
   // parser
   Node* root = parser();
  

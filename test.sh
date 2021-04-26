@@ -22,7 +22,9 @@ assert(){
 
 assert 1 1
 assert 42 42
-#assert "5 * 20" 100
-#assert "1+2" "3"
+assert "6 * 5" 30
+assert "6*5*4" 120
+assert "6*5*4*1" 120 # 1~255の範囲
+assert " 1 * 2 * 2 *1 * 1 *3*  1 * 4 * 4" 192
 
 echo Done
