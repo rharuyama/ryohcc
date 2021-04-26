@@ -66,7 +66,6 @@ void tokenizer(char* p){
   while(1){
     if(isspace(*p)){
       p++;
-      continue;
       
     }else if(*p == '*'){
       char* times = "*";
@@ -85,7 +84,7 @@ void tokenizer(char* p){
     }else{
       // ひとまず上記以外のパターンは無視するが，これで良いのだろうか？
       cur = new_token(TK_EOF, cur, "\0");
-      break;
+      return;
     }
   }
 }

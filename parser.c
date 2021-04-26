@@ -64,9 +64,9 @@ Node* mul(Token* cur){
 Node* parser(){
   Token* cur = top;
 
-  Node* newNode = mul(cur); // 6
+  Node* root = mul(cur); // 6
 
-  return newNode;
+  return root;
 }
 
 
