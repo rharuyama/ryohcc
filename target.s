@@ -26,5 +26,12 @@ main:
    idiv rax, rdi
    push rax
 
+   push 7
+
+   pop rdi
+   pop rax
+   imul rax, rdi
+   push rax
+
    pop rax
    ret

@@ -74,7 +74,7 @@ int main(int argc, char** argv){
   // parser
   Node* root = parser();
 
-  dump_test(root);
+  //  dump_test(root);
   
   codegen(root);
 
