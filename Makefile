@@ -1,11 +1,11 @@
 ryohcc:
-	clang -o .ryohcc ryohcc.c -g
+	clang -o ryohcc ryohcc.c -g
 
 target: ryohcc
-	clang -o .target target.s
+	clang -o target target.s
 
-test: ryohcc clean
+test: clean ryohcc
 	bash test.sh
 
 clean:
-	rm -rf .ryohcc .target *.s
+	rm -rf ryohcc target *.s *.out

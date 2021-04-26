@@ -28,26 +28,26 @@ Node* new_node_num(NodeKind kind, int val){
 
 Node* primary(Token* cur){
   int val = cur->val;
-  Node* newNode3 = new_node_num(ND_NUM, val);
-  return newNode3;
+  Node* newNode = new_node_num(ND_NUM, val);
+  return newNode;
+}
+
+Node* mul(Token* cur){
+  Node* node = primary(cur);
+
+  while(1){
+    if(cur->next->kind == TK_EOF){
+      return node;
+    }
+  }
 }
 
 Node* parser(){
   Token* cur = top;
 
-  Node* newNode = primary(cur); // 6
+  Node* newNode = mul(cur); // 6
 
-  // if(cur->next->kind == TK_RESERVED && cur->next->data == '*')
-
-  cur = cur->next; // *
-
-  Node* tmp_root = new_node(ND_MUL, newNode, primary(cur = cur->next)); // 5
-
-  cur = cur->next; // * 
-
-  Node* tmp_root2 = new_node(ND_MUL, tmp_root, primary(cur->next));  // 4
-
-  return tmp_root2;
+  return newNode;
 }
 
 

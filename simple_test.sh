@@ -3,7 +3,7 @@
 make clean
 make
 
-./.ryohcc "6 * 5 * 4" > target.s
+./ryohcc "6" > target.s
 
 make target
-./.target
+./target

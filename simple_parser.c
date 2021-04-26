@@ -44,13 +44,13 @@ Node* mul(char* p){
 void print_tree(Node* node){
   if(node->lhs == NULL || node->rhs == NULL){
     printf("%c ", node->c);
-    return;
+  }else{
+    printf("(");
+    printf("%c ", node->c);
+    print_tree(node->lhs);
+    print_tree(node->rhs);
+    printf(") ");
   }
-  printf("(");
-  printf("%c ", node->c);
-  print_tree(node->lhs);
-  print_tree(node->rhs);
-  printf(") ");
 }
 
 int main(int argc, char** argv){

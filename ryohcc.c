@@ -31,11 +31,10 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   tokenizer(input); // Token* top にトークンの列がセットされる
-  show_tokens();
   
   // parser
-  Node* root = parser(); 
-
+  Node* root = parser();
+ 
   codegen(root);
 
   printf("   pop rax\n");
