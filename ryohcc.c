@@ -28,6 +28,14 @@ void codegen(Node* root){
     printf("   idiv rax, rdi\n");
     printf("   push rax\n\n");
     
+  }else if(root->kind == ND_ADD){
+    codegen(root->lhs);
+    codegen(root->rhs);
+    printf("   pop rdi\n");
+    printf("   pop rax\n");
+    printf("   add rax, rdi\n");
+    printf("   push rax\n\n");
+    
   }else{
     printf("// ERROR HERE in codegen");
   }
@@ -47,6 +55,13 @@ void dump_as_Sexp(Node* root){
   }else if(root->kind == ND_DIV){
     fprintf(stderr, "(");
     fprintf(stderr, "/ ");
+    dump_as_Sexp(root->lhs);
+    dump_as_Sexp(root->rhs);
+    fprintf(stderr, ") ");
+    
+  }else if(root->kind == ND_ADD){
+    fprintf(stderr, "(");
+    fprintf(stderr, "+ ");
     dump_as_Sexp(root->lhs);
     dump_as_Sexp(root->rhs);
     fprintf(stderr, ") ");
@@ -74,7 +89,7 @@ int main(int argc, char** argv){
   // parser
   Node* root = parser();
 
-  //  dump_test(root);
+  //dump_test(root);
   
   codegen(root);
 
