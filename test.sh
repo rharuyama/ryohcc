@@ -28,5 +28,7 @@ assert "35 / 5" 7
 assert " 6 * 5 / 5/3 * 7" 14
 assert "7 + 5" 12
 assert "7 + 5 * 2" 17
-
+assert "7 - 3" 4
+assert "2 * 5 / 1 + 9" 19
+assert "2 * 5 - 9" 1
 echo Done!

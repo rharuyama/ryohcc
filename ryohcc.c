@@ -36,6 +36,14 @@ void codegen(Node* root){
     printf("   add rax, rdi\n");
     printf("   push rax\n\n");
     
+  }else if(root->kind == ND_SUB){
+    codegen(root->lhs);
+    codegen(root->rhs);
+    printf("   pop rdi\n");
+    printf("   pop rax\n");
+    printf("   sub rax, rdi\n");
+    printf("   push rax\n\n");
+    
   }else{
     printf("// ERROR HERE in codegen");
   }
@@ -65,6 +73,13 @@ void dump_as_Sexp(Node* root){
     dump_as_Sexp(root->lhs);
     dump_as_Sexp(root->rhs);
     fprintf(stderr, ") ");
+
+  }else if(root->kind == ND_SUB){
+    fprintf(stderr, "(");
+    fprintf(stderr, "- ");
+    dump_as_Sexp(root->lhs);
+    dump_as_Sexp(root->rhs);
+    fprintf(stderr, ") ");
     
   }else{
     fprintf(stderr, "ERROR in dump_as_Sexp");    
@@ -85,11 +100,11 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   tokenizer(input); // Token* top にトークンの列がセットされる
+  show_tokens();
 
   // parser
   Node* root = parser();
-
-  //dump_test(root);
+  dump_test(root);
   
   codegen(root);
 
