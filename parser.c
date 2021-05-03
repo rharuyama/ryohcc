@@ -31,13 +31,22 @@ Node* new_node_num(NodeKind kind, int val){
 
 Node* primary(){
   Node* node = new_node_num(ND_NUM, top->val);
-  top++;
+  top = top->next;
   return node;
 }
 
 Node* mul(){
   Node* node = primary();
-  return node;
+
+  while(1){
+    if(strcmp(top->data, "*") == 0){
+      top = top->next;
+      node = new_node(ND_MUL, node, primary());
+      
+    }else{
+      return node;
+    }
+  }
 }
 
 Node* expr(){

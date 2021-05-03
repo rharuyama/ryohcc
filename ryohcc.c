@@ -102,8 +102,11 @@ int main(int argc, char** argv){
   tokenizer(input); // Token* top にトークンの列がセットされる
   show_tokens();
 
+  fprintf(stderr, ">>");
+  fprintf(stderr, "%s\n", top->data);
   // parser
   Node* root = parser();
+
   dump_test(root);
   
   codegen(root);
