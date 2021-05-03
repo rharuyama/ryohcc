@@ -57,7 +57,7 @@ Node* expr(){
 
   while(1){
     if(*tok == '+'){
-        tok++;
+      tok++;
       node = newNode('+', node, mul());
 
     }else{

@@ -68,13 +68,11 @@ void tokenizer(char* p){
       p++;
       
     }else if(*p == '*'){
-      char* times = "*";
-      cur = new_token(TK_RESERVED, cur, times);
+      cur = new_token(TK_RESERVED, cur, "*");
       p++;
       
     }else if(*p == '/'){
-      char* div = "/";
-      cur = new_token(TK_RESERVED, cur, div);
+      cur = new_token(TK_RESERVED, cur, "/");
       p++;
 
     }else if(*p == '+'){

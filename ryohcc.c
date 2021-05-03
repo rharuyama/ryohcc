@@ -92,19 +92,19 @@ void dump_test(Node* root){
 }
 
 int main(int argc, char** argv){
-  char* input = argv[1]; // "5 * 20"
+  char* input = argv[1];
 
   printf(".intel_syntax noprefix\n");
   printf(".globl main\n");
   printf("main:\n");
 
   tokenizer(input); // Token* top にトークンの列がセットされる
-  show_tokens();
+  //  show_tokens();
 
   // parser
-  Node* root = parser();
+  Node* root = expr();
 
-  dump_test(root);
+  //  dump_test(root);
   
   codegen(root);
 
