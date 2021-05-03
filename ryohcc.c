@@ -87,9 +87,8 @@ void dump_as_Sexp(Node* root){
 }
 
 void dump_test(Node* root){
-  fprintf(stderr, "--------------------------\n");
   dump_as_Sexp(root);
-  fprintf(stderr, "\n--------------------------\n");
+  fprintf(stderr, "\n");
 }
 
 int main(int argc, char** argv){
@@ -102,8 +101,6 @@ int main(int argc, char** argv){
   tokenizer(input); // Token* top にトークンの列がセットされる
   show_tokens();
 
-  fprintf(stderr, ">>");
-  fprintf(stderr, "%s\n", top->data);
   // parser
   Node* root = parser();
 

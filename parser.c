@@ -43,6 +43,10 @@ Node* mul(){
       top = top->next;
       node = new_node(ND_MUL, node, primary());
       
+    }else if(strcmp(top->data, "/") == 0){
+      top = top->next;
+      node = new_node(ND_DIV, node, primary());
+      
     }else{
       return node;
     }
@@ -51,7 +55,20 @@ Node* mul(){
 
 Node* expr(){
   Node* node = mul();
-  return node;
+
+  while(1){
+    if(strcmp(top->data, "+") == 0){
+      top = top->next;
+      node = new_node(ND_ADD, node, mul());
+      
+    }else if(strcmp(top->data, "-") == 0){
+      top = top->next;
+      node = new_node(ND_SUB, node, mul());
+      
+    }else{
+      return node;
+    }
+  }
 }
 
 Node* parser(){
