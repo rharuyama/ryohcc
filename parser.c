@@ -71,10 +71,4 @@ Node* expr(){
   }
 }
 
-Node* parser(){
-  Node* root = expr(); // 6
-
-  return root;
-}
-
 
