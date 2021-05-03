@@ -32,7 +32,20 @@ void show(Node* root){
   }
 }
 
+Node* expr();
+
 Node* primary(){
+  if(*tok == '('){
+    tok++;
+    Node* node = expr();
+    if(*tok == ')'){
+      tok++;
+      return node;
+    }
+    fprintf(stderr, "no close parenthesis");
+    exit(1);
+  }
+  
   Node* node = newNode(*tok, NULL, NULL);
   tok++; 
   return node;
