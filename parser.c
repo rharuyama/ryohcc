@@ -1,9 +1,11 @@
 typedef enum{
+  ND_NUM,
   ND_MUL,
   ND_DIV,
   ND_ADD,
   ND_SUB,
-  ND_NUM,
+  ND_REL,
+  ND_EQU,
 }NodeKind;
 
 typedef struct Node Node;
@@ -29,12 +31,12 @@ Node* new_node_num(NodeKind kind, int val){
   return newNode;
 }
 
-Node* expr();
+Node* add();
 
 Node* primary(){
   if(strcmp(top->data, "(") == 0){
     top = top->next;
-    Node* node = expr();
+    Node* node = add();
     if(strcmp(top->data, ")") == 0){
       top = top->next;
       return node;
@@ -84,7 +86,7 @@ Node* mul(){
   }
 }
 
-Node* expr(){
+Node* add(){
   Node* node = mul();
 
   while(1){
@@ -102,4 +104,21 @@ Node* expr(){
   }
 }
 
+Node* relational(){
+  Node* node = add();
+
+  while(1){
+    if(strcmp(top->data, "<=") == 0){
+      top = top->next;
+      node = new_node(ND_REL, node, add());
+
+    }else{
+      return node;
+    }
+  }
+}
+
+Node* expr(){
+  return relational();
+}
 

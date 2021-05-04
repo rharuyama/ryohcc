@@ -102,13 +102,20 @@ Token* tokenizer(char* p){
       continue;
     }
 
+    if(*p == '<' && *(p+1) == '='){
+      cur = new_token(TK_RESERVED, cur, "<=");
+      p = p + 2;
+      continue;
+    }
+
     if(isdigit(*p)){
       cur = new_token(TK_NUM, cur, p);
       cur->val = strtol(p, &p, 10);
       continue;
     }
 
-    fprintf(stderr, "cannot tokenize");
+    fprintf(stderr, "cannot tokenize\n");
+    exit(1);
   }
 
   new_token(TK_EOF, cur, "\0");

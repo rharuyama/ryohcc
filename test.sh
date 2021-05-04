@@ -36,4 +36,5 @@ assert "2 * 5 - 9" 1
 assert "6 * (5 + 4)" 54
 assert "(6 + 5) * (4 + 3)" 77
 assert "-3*+5*-1" 15
+assert "5 <= 7" 1 
 echo Done!
