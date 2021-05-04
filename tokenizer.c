@@ -108,15 +108,21 @@ Token* tokenizer(char* p){
       continue;
     }
 
-    if(*p == '<'){
+    if(*p == '>' && *(p+1) == '='){
+      cur = new_token(TK_RESERVED, cur, ">=");
+      p = p + 2;
+      continue;
+    }
+
+     if(*p == '<'){
       cur = new_token(TK_RESERVED, cur, "<");
       p++;
       continue;
     }
 
-    if(*p == '>' && *(p+1) == '='){
-      cur = new_token(TK_RESERVED, cur, ">=");
-      p = p + 2;
+     if(*p == '>'){
+      cur = new_token(TK_RESERVED, cur, ">");
+      p++;
       continue;
     }
 

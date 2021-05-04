@@ -4,6 +4,7 @@ typedef enum{
   ND_DIV,
   ND_ADD,
   ND_SUB,
+  ND_REQ,
   ND_REL,
   ND_EQU,
 }NodeKind;
@@ -110,12 +111,20 @@ Node* relational(){
   while(1){
     if(strcmp(top->data, "<=") == 0){
       top = top->next;
-      node = new_node(ND_REL, node, add());
+      node = new_node(ND_REQ, node, add());
 
     }else if(strcmp(top->data, ">=") == 0){
       top = top->next;
-      node = new_node(ND_REL, add(), node);
+      node = new_node(ND_REQ, add(), node);
 
+    }else if(strcmp(top->data, "<") == 0){
+      top = top->next;
+      node = new_node(ND_REL, node, add());
+
+    }else if(strcmp(top->data, ">") == 0){
+      top = top->next;
+      node = new_node(ND_REL, add(), node);
+      
     }else{
       return node;
     }

@@ -40,4 +40,7 @@ assert "5 <= 7" 1
 assert "3 + 4 <= 6" 0
 assert "7 >= 5" 1
 assert "38 * 0 >= 1" 0
+assert "1 <= 1" 1
+assert "1 < 1" 0
+assert "17 > 13" 1
 echo Done!

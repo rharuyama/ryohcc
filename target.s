@@ -1,21 +1,14 @@
 .intel_syntax noprefix
 .globl main
 main:
-   push 1
+   push 13
 
-   push 38
-
-   push 0
-
-   pop rdi
-   pop rax
-   imul rax, rdi
-   push rax
+   push 17
 
    pop rdi
    pop rax
    cmp rax, rdi
-   setle al
+   setl al
    movzx rax, al
    push rax
 

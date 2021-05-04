@@ -44,13 +44,23 @@ void codegen(Node* root){
     printf("   sub rax, rdi\n");
     printf("   push rax\n\n");
     
-  }else if(root->kind == ND_REL){
+  }else if(root->kind == ND_REQ){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("   pop rdi\n");
     printf("   pop rax\n");
     printf("   cmp rax, rdi\n");
     printf("   setle al\n");
+    printf("   movzx rax, al\n");
+    printf("   push rax\n\n");
+
+  }else if(root->kind == ND_REL){
+    codegen(root->lhs);
+    codegen(root->rhs);
+    printf("   pop rdi\n");
+    printf("   pop rax\n");
+    printf("   cmp rax, rdi\n");
+    printf("   setl al\n");
     printf("   movzx rax, al\n");
     printf("   push rax\n\n");
     
