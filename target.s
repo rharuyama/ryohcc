@@ -8,7 +8,7 @@ main:
    pop rdi
    pop rax
    cmp rax, rdi
-   sete al
+   setne al
    movzx rax, al
    push rax
 

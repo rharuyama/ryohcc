@@ -7,6 +7,7 @@ typedef enum{
   ND_REQ,
   ND_REL,
   ND_EQU,
+  ND_NEQ,
 }NodeKind;
 
 typedef struct Node Node;
@@ -138,6 +139,10 @@ Node* equality(){
     if(strcmp(top->data, "==") == 0){
       top = top->next;
       node = new_node(ND_EQU, node, relational());
+
+    }else if(strcmp(top->data, "!=") == 0){
+      top = top->next;
+      node = new_node(ND_NEQ, node, relational());
       
     }else{
       return node;
