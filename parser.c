@@ -131,7 +131,21 @@ Node* relational(){
   }
 }
 
+Node* equality(){
+  Node* node = relational();
+
+  while(1){
+    if(strcmp(top->data, "==") == 0){
+      top = top->next;
+      node = new_node(ND_EQU, node, relational());
+      
+    }else{
+      return node;
+    }
+  }
+}
+
 Node* expr(){
-  return relational();
+  return equality();
 }
 

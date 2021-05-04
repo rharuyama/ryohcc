@@ -63,6 +63,16 @@ void codegen(Node* root){
     printf("   setl al\n");
     printf("   movzx rax, al\n");
     printf("   push rax\n\n");
+
+  }else if(root->kind == ND_EQU){
+    codegen(root->lhs);
+    codegen(root->rhs);
+    printf("   pop rdi\n");
+    printf("   pop rax\n");
+    printf("   cmp rax, rdi\n");
+    printf("   sete al\n");
+    printf("   movzx rax, al\n");
+    printf("   push rax\n\n");
     
   }else{
     printf("// ERROR HERE in codegen");
