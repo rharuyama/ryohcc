@@ -29,7 +29,20 @@ Node* new_node_num(NodeKind kind, int val){
   return newNode;
 }
 
+Node* expr();
+
 Node* primary(){
+  if(strcmp(top->data, "(") == 0){
+    top = top->next;
+    Node* node = expr();
+    if(strcmp(top->data, ")") == 0){
+      top = top->next;
+      return node;
+    }
+    fprintf(stderr, "no close parenthesis");
+    exit(1);
+  }
+  
   Node* node = new_node_num(ND_NUM, top->val);
   top = top->next;
   return node;

@@ -55,50 +55,62 @@ Token* new_token(TokenKind kind, Token* cur, char* data){
   return newTok;
 }
 
-void tokenizer(char* p){
-  Token* newTok = malloc(sizeof(Token));
-  newTok->val = strtol(p, &p, 10);
-  newTok->kind = TK_NUM;
+Token* tokenizer(char* p){
+  Token head;
+  head.next = NULL;
+  Token* cur = &head;
 
-  Token* cur = newTok;
-  top = cur;
-
-  while(1){
+  while(*p){
     if(isspace(*p)){
       p++;
-      
-    }else if(*p == '*'){
+      continue;
+    }
+
+    if(*p == '*'){
       cur = new_token(TK_RESERVED, cur, "*");
       p++;
-      
-    }else if(*p == '/'){
+      continue;
+    }
+
+    if(*p == '/'){
       cur = new_token(TK_RESERVED, cur, "/");
       p++;
+      continue;
+    }
 
-    }else if(*p == '+'){
+    if(*p == '+'){
       cur = new_token(TK_RESERVED, cur, "+");
       p++;
-      
-    }else if(*p == '-'){
+      continue;
+    }
+
+    if(*p == '-'){
       cur = new_token(TK_RESERVED, cur, "-");
       p++;
-      
-    }else if(*p == '('){
+      continue;
+    }
+
+    if(*p == '('){
       cur = new_token(TK_RESERVED, cur, "(");
       p++;
-      
-    }else if(*p == ')'){
+      continue;
+    }
+
+    if(*p == ')'){
       cur = new_token(TK_RESERVED, cur, ")");
       p++;
-      
-    }else if(isdigit(*p)){
+      continue;
+    }
+
+    if(isdigit(*p)){
       cur = new_token(TK_NUM, cur, p);
       cur->val = strtol(p, &p, 10);
-      
-    }else{
-      // ひとまず上記以外のパターンは無視するが，これで良いのだろうか？
-      cur = new_token(TK_EOF, cur, "\0");
-      return;
+      continue;
     }
+
+    fprintf(stderr, "cannot tokenize");
   }
+
+  new_token(TK_EOF, cur, "\0");
+  return head.next;
 }

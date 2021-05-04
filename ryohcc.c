@@ -98,7 +98,7 @@ int main(int argc, char** argv){
   printf(".globl main\n");
   printf("main:\n");
 
-  tokenizer(input); // Token* top にトークンの列がセットされる
+  top = tokenizer(input); // Token* top にトークンの列がセットされる
   //  show_tokens();
 
   // parser
