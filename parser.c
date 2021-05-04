@@ -112,6 +112,10 @@ Node* relational(){
       top = top->next;
       node = new_node(ND_REL, node, add());
 
+    }else if(strcmp(top->data, ">=") == 0){
+      top = top->next;
+      node = new_node(ND_REL, add(), node);
+
     }else{
       return node;
     }
