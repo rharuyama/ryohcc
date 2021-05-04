@@ -83,6 +83,14 @@ void tokenizer(char* p){
       cur = new_token(TK_RESERVED, cur, "-");
       p++;
       
+    }else if(*p == '('){
+      cur = new_token(TK_RESERVED, cur, "(");
+      p++;
+      
+    }else if(*p == ')'){
+      cur = new_token(TK_RESERVED, cur, ")");
+      p++;
+      
     }else if(isdigit(*p)){
       cur = new_token(TK_NUM, cur, p);
       cur->val = strtol(p, &p, 10);
