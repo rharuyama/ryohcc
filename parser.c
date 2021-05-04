@@ -48,17 +48,35 @@ Node* primary(){
   return node;
 }
 
+Node* unary(){
+  if(strcmp(top->data, "+") == 0){
+    top = top->next;
+    Node* zero = new_node_num(ND_NUM, 0);
+    Node* node = new_node(ND_ADD, zero, primary());
+    return node;
+
+  }else if(strcmp(top->data, "-") == 0){
+    top = top->next;
+    Node* zero = new_node_num(ND_NUM, 0);
+    Node* node = new_node(ND_SUB, zero, primary());
+    return node;
+  }else{
+    Node* node = primary();
+    return node;
+  }
+}
+
 Node* mul(){
-  Node* node = primary();
+  Node* node = unary(); // unary()
 
   while(1){
     if(strcmp(top->data, "*") == 0){
       top = top->next;
-      node = new_node(ND_MUL, node, primary());
+      node = new_node(ND_MUL, node, unary()); // unary()
       
     }else if(strcmp(top->data, "/") == 0){
       top = top->next;
-      node = new_node(ND_DIV, node, primary());
+      node = new_node(ND_DIV, node, unary()); // unary()
       
     }else{
       return node;
