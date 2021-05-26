@@ -154,5 +154,8 @@ void stmt(){
 }
 
 void program(){
-  stmt();
+  while(!at_eof(top)){
+    stmt();
+  }
+  code[code_idx] = NULL;
 }

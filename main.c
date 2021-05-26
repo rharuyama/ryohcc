@@ -13,7 +13,8 @@ int main(int argc, char** argv){
   // parser
   //  Node* root = program();
   program();
-  Node* root = code[0];
+  Node* root = code[code_idx - 1];
+  fprintf(stderr, ">>>%d\n", code_idx);
 
   //  dump_test(root);
   

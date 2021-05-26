@@ -45,5 +45,5 @@ assert "1 < 1;" 0
 assert "17 > 13;" 1
 assert "83 == 83;" 1
 assert "83 != 83;" 0
-assert "1;2;3;" 1
+assert "1;2;3;" 3
 echo Done!
