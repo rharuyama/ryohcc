@@ -1,24 +1,21 @@
 	.intel_syntax noprefix
 	.globl main
 main:
-	push 30
+	push 7
 
-	push 43
+	call nop // push continuation, jump into nop
 
-	call plus
-
-	ret
-
-plus:
-	pop rbp // save return address
-	
-	pop rdi
-
-	pop rsi
-	
-	add rsi, rdi
-	mov rax, rsi
-
-	push rbp
+	pop rax
 	
 	ret
+
+nop:
+	push rbp //
+	mov rbp, rsp // open
+
+	// instruction here
+
+	mov rsp, rbp // close
+	pop rbp //
+
+	ret // pop the continuation, jump into there
