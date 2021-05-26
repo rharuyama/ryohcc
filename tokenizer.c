@@ -1,16 +1,4 @@
-typedef enum{
-  TK_RESERVED,
-  TK_NUM,
-  TK_EOF,
-}TokenKind;
-
-typedef struct Token Token;
-struct Token{
-  int val;
-  char* data;
-  TokenKind kind;
-  Token* next;
-};
+#include "ryohcc.h"
 
 Token* top;
 
@@ -141,6 +129,12 @@ Token* tokenizer(char* p){
     if(isdigit(*p)){
       cur = new_token(TK_NUM, cur, p);
       cur->val = strtol(p, &p, 10);
+      continue;
+    }
+
+    if(*p == ';'){
+      cur = new_token(TK_RESERVED, cur, ";");
+      p++;
       continue;
     }
 

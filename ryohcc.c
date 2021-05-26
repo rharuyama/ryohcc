@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdbool.h>
-
-#include "tokenizer.c"
-#include "parser.c"
+#include "ryohcc.h"
 
 void codegen(Node* root){
   if(root->kind == ND_NUM){
@@ -142,7 +135,9 @@ int main(int argc, char** argv){
   //  show_tokens();
 
   // parser
-  Node* root = expr();
+  //  Node* root = program();
+  stmt();
+  Node* root = code[0];
 
   //  dump_test(root);
   

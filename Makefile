@@ -1,5 +1,5 @@
 ryohcc:
-	clang -o ryohcc ryohcc.c -g
+	clang -o ryohcc ryohcc.c tokenizer.c parser.c -g
 
 target: ryohcc
 	clang -o target target.s

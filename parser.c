@@ -1,22 +1,7 @@
-typedef enum{
-  ND_NUM,
-  ND_MUL,
-  ND_DIV,
-  ND_ADD,
-  ND_SUB,
-  ND_REQ,
-  ND_REL,
-  ND_EQU,
-  ND_NEQ,
-}NodeKind;
+#include "ryohcc.h"
 
-typedef struct Node Node;
-struct Node{
-  NodeKind kind;
-  Node* lhs;
-  Node* rhs;
-  int val;
-};
+Node* code[100];
+int code_idx = 0;
 
 Node* new_node(NodeKind kind, Node* lhs, Node* rhs){
   Node* newNode = calloc(1, sizeof(Node));
@@ -150,7 +135,24 @@ Node* equality(){
   }
 }
 
-Node* expr(){
+Node* assign(){
   return equality();
 }
 
+Node* expr(){
+  return assign();
+}
+
+void stmt(){
+  Node* node = expr();
+
+  if(strcmp(top->data, ";") == 0){
+    top = top->next;
+    code[code_idx] = node;
+    code_idx++;
+  }
+}
+
+void program(){
+  
+}
