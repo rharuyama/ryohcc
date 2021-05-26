@@ -64,3 +64,7 @@ Node* assign();
 Node* expr();
 void stmt();
 void program();
+
+// ryohcc.c (codegen)
+
+void codegen(Node*);
