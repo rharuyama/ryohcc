@@ -11,10 +11,8 @@ int main(int argc, char** argv){
   //  show_tokens();
 
   // parser
-  //  Node* root = program();
   program();
   Node* root = code[code_idx - 1];
-  fprintf(stderr, ">>>%d\n", code_idx);
 
   //  dump_test(root);
   
