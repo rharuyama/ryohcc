@@ -12,7 +12,7 @@ int main(int argc, char** argv){
 
   // parser
   //  Node* root = program();
-  stmt();
+  program();
   Node* root = code[0];
 
   //  dump_test(root);

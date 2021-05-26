@@ -154,5 +154,5 @@ void stmt(){
 }
 
 void program(){
-  
+  stmt();
 }
