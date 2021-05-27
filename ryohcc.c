@@ -76,6 +76,17 @@ void codegen(Node* root){
     printf("   setne al\n");
     printf("   movzx rax, al\n");
     printf("   push rax\n\n");
+
+  }else if(root->kind == ND_ASS){
+    codegen(root->rhs);
+    if(root->lhs->kind != ND_LVAR){
+      fprintf(stderr, "left hand side in assignment is not variable");
+    }
+    printf("   pop rax\n");
+    printf("   mov QWORD PTR [rbp-8], rax\n\n");
+
+  }else if(root->kind == ND_LVAR){
+    printf("   push [rbp-8]\n\n");
     
   }else{
     printf("// ERROR HERE in codegen");

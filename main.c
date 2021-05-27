@@ -8,16 +8,26 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   top = tokenizer(input); // Token* top にトークンの列がセットされる
-  //  show_tokens();
+ // show_tokens();
 
   // parser
   program();
   Node* root = code[code_idx - 1];
 
-  //  dump_test(root);
-  
-  codegen(root);
+ // dump_test(root);
 
-  printf("   pop rax\n");
-  printf("   ret\n");
+  // prorogue
+  printf("  push rbp\n");
+  printf("  mov rbp, rsp\n");
+  printf("  sub rsp, 208\n\n");
+  
+  for(int i = 0; code[i]; i++){
+    codegen(code[i]);
+    printf("  pop rax\n");
+  }
+
+  // epilogue
+  printf("  mov rsp, rbp\n");
+  printf("  pop rbp\n");
+  printf("  ret\n");
 }

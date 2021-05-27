@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
+#include <error.h>
 
 // tokenizer
 
@@ -10,6 +11,7 @@ typedef enum{
   TK_RESERVED,
   TK_NUM,
   TK_EOF,
+  TK_IDENT,
 }TokenKind;
 
 typedef struct Token Token;
@@ -39,6 +41,8 @@ typedef enum{
   ND_REL,
   ND_EQU,
   ND_NEQ,
+  ND_ASS,
+  ND_LVAR,
 }NodeKind;
 
 typedef struct Node Node;
@@ -47,6 +51,7 @@ struct Node{
   Node* lhs;
   Node* rhs;
   int val;
+  int offset;
 };
 
 extern Node* code[100];

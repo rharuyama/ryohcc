@@ -18,6 +18,13 @@ Node* new_node_num(NodeKind kind, int val){
   return newNode;
 }
 
+Node* new_node_lvar(){
+  Node* newNode = calloc(1, sizeof(Node));
+  newNode->kind = ND_LVAR;
+  newNode->offset = 0;
+  return newNode;
+}
+
 Node* add();
 
 Node* primary(){
@@ -31,7 +38,13 @@ Node* primary(){
     fprintf(stderr, "no close parenthesis");
     exit(1);
   }
-  
+
+  if(strcmp(top->data, "a") == 0){
+    Node* node = new_node_lvar();
+    top = top->next;  
+    return node;
+  }
+
   Node* node = new_node_num(ND_NUM, top->val);
   top = top->next;
   return node;
@@ -136,7 +149,17 @@ Node* equality(){
 }
 
 Node* assign(){
-  return equality();
+  Node* node = equality();
+
+  while(1){
+    if(strcmp(top->data, "=") == 0){
+      top = top->next;
+      node = new_node(ND_ASS, node, assign());
+
+    }else{
+      return node;
+    }
+  }
 }
 
 Node* expr(){

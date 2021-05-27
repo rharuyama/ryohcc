@@ -126,6 +126,18 @@ Token* tokenizer(char* p){
       continue;
     }
 
+    if(*p == '='){
+      cur = new_token(TK_RESERVED, cur, "=");
+      p++;
+      continue;
+    }
+
+    if('a' <= *p && *p <= 'z'){
+      cur = new_token(TK_IDENT, cur, "a");
+      p++;
+      continue;
+    }
+
     if(isdigit(*p)){
       cur = new_token(TK_NUM, cur, p);
       cur->val = strtol(p, &p, 10);
