@@ -28,6 +28,12 @@ void show_tokens(){
       continue;
     }
 
+    if(cur->kind == TK_IDENT){
+      fprintf(stderr, "--> %s\n", cur->data);
+      cur = cur->next;
+      continue;
+    }
+
     if(cur->kind == TK_EOF){
       fprintf(stderr, "--> EOF\n");
       break;

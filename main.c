@@ -8,13 +8,10 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   top = tokenizer(input); // Token* top にトークンの列がセットされる
- // show_tokens();
+  show_tokens();
 
   // parser
   program();
-  Node* root = code[code_idx - 1];
-
- // dump_test(root);
 
   // prorogue
   printf("\tpush rbp\n");
