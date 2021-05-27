@@ -3,7 +3,6 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
-#include <error.h>
 
 // tokenizer
 
@@ -59,6 +58,7 @@ extern int code_idx;
 
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);
+Node* new_node_lvar();
 Node* add();
 Node* primary();
 Node* unary();

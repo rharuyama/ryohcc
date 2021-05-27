@@ -21,7 +21,7 @@ Node* new_node_num(NodeKind kind, int val){
 Node* new_node_lvar(){
   Node* newNode = calloc(1, sizeof(Node));
   newNode->kind = ND_LVAR;
-  newNode->offset = 0;
+  newNode->offset = 8;
   return newNode;
 }
 
@@ -69,16 +69,16 @@ Node* unary(){
 }
 
 Node* mul(){
-  Node* node = unary(); // unary()
+  Node* node = unary();
 
   while(1){
     if(strcmp(top->data, "*") == 0){
       top = top->next;
-      node = new_node(ND_MUL, node, unary()); // unary()
+      node = new_node(ND_MUL, node, unary());
       
     }else if(strcmp(top->data, "/") == 0){
       top = top->next;
-      node = new_node(ND_DIV, node, unary()); // unary()
+      node = new_node(ND_DIV, node, unary());
       
     }else{
       return node;

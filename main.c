@@ -17,17 +17,17 @@ int main(int argc, char** argv){
  // dump_test(root);
 
   // prorogue
-  printf("  push rbp\n");
-  printf("  mov rbp, rsp\n");
-  printf("  sub rsp, 208\n\n");
+  printf("\tpush rbp\n");
+  printf("\tmov rbp, rsp\n");
+  printf("\tsub rsp, 208\n\n");
   
   for(int i = 0; code[i]; i++){
     codegen(code[i]);
-    printf("  pop rax\n");
+    printf("\tpop rax\n\n");
   }
 
   // epilogue
-  printf("  mov rsp, rbp\n");
-  printf("  pop rbp\n");
-  printf("  ret\n");
+  printf("\tmov rsp, rbp\n");
+  printf("\tpop rbp\n");
+  printf("\tret\n\n");
 }
