@@ -19,6 +19,7 @@ struct Token{
   char* data;
   TokenKind kind;
   Token* next;
+  int len;
 };
 
 extern Token* top;

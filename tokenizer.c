@@ -139,9 +139,8 @@ Token* tokenizer(char* p){
     }
 
     if('a' <= *p && *p <= 'z'){
-      char s[100];
-      sprintf(s, "%c", *p);
-      cur = new_token(TK_IDENT, cur, "a");
+      cur = new_token(TK_IDENT, cur, p);
+      cur->len = 1;
       p++;
       continue;
     }

@@ -39,15 +39,20 @@ Node* primary(){
     exit(1);
   }
 
-  if(strcmp(top->data, "a") == 0){
+  if(top->data[0] == 'a'){ // 変数名の頭しかチェックしていない
     Node* node = new_node_lvar();
     top = top->next;  
     return node;
+  }else if(isdigit(top->data[0])){  
+    Node* node = new_node_num(ND_NUM, top->val);
+    top = top->next;
+    return node;
+  }else{
+    fprintf(stderr, "error in primary() in parser.c: [%s]\n", top->data);    
+    Node* node = new_node_lvar();
+    top = top->next;
+    return node;
   }
-
-  Node* node = new_node_num(ND_NUM, top->val);
-  top = top->next;
-  return node;
 }
 
 Node* unary(){

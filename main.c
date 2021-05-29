@@ -8,7 +8,7 @@ int main(int argc, char** argv){
   printf("main:\n");
 
   top = tokenizer(input); // Token* top にトークンの列がセットされる
-  show_tokens();
+ // show_tokens();
 
   // parser
   program();
