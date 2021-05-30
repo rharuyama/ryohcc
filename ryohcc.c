@@ -83,10 +83,10 @@ void codegen(Node* root){
       fprintf(stderr, "left hand side in assignment is not variable");
     }
     printf("\tpop rax\n");
-    printf("\tmov QWORD PTR [rbp-8], rax\n\n");
+    printf("\tmov QWORD PTR [rbp-%d], rax\n\n", root->lhs->offset);
 
   }else if(root->kind == ND_LVAR){
-    printf("\tpush [rbp-%d]\n\n", 8);
+    printf("\tpush [rbp-%d]\n\n", root->offset);
     
   }else{
     printf("// ERROR HERE in codegen");

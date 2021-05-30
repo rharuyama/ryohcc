@@ -18,10 +18,10 @@ Node* new_node_num(NodeKind kind, int val){
   return newNode;
 }
 
-Node* new_node_lvar(){
+Node* new_node_lvar(int offset){
   Node* newNode = calloc(1, sizeof(Node));
   newNode->kind = ND_LVAR;
-  newNode->offset = 8;
+  newNode->offset = offset;
   return newNode;
 }
 
@@ -39,8 +39,9 @@ Node* primary(){
     exit(1);
   }
 
-  if(top->data[0] == 'a'){ // 変数名の頭しかチェックしていない
-    Node* node = new_node_lvar();
+  if(isalpha(top->data[0])){ // 変数名の頭しかチェックしていない
+    int offset = (top->data[0] - '`') * 8; // ofsett of 'a' = 8, of 'b' = 16 ...
+    Node* node = new_node_lvar(offset);
     top = top->next;  
     return node;
   }else if(isdigit(top->data[0])){  
@@ -49,7 +50,7 @@ Node* primary(){
     return node;
   }else{
     fprintf(stderr, "error in primary() in parser.c: [%s]\n", top->data);    
-    Node* node = new_node_lvar();
+    Node* node = new_node_lvar(8);
     top = top->next;
     return node;
   }

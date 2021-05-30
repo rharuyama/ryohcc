@@ -48,4 +48,5 @@ assert "83 != 83;" 0
 assert "1;2;3;" 3
 assert "a = 3; a + 4;" 7
 assert "a = 3; a = 4 + a; a * 10;" 70
+assert "a = 32; b = 23; c = b + 1; a + b + c;" 79
 echo Done!

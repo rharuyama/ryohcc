@@ -59,7 +59,7 @@ extern int code_idx;
 
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);
-Node* new_node_lvar();
+Node* new_node_lvar(int);
 Node* add();
 Node* primary();
 Node* unary();
