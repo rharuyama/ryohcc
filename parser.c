@@ -173,13 +173,16 @@ Node* expr(){
 }
 
 void stmt(){
-  if(top->kind == TK_RETURN){
-    Node* node = new_node(ND_RETURN, expr(), NULL);
+  Node* node;
+
+  if(strcmp(top->data, "return") == 0){
+    top = top->next;
+    node = new_node(ND_RETURN, expr(), NULL);
     code[code_idx] = node;
     code_idx++;
+  }else{
+    node = expr();
   }
-
-  Node* node = expr();
 
   if(strcmp(top->data, ";") == 0){
     top = top->next;

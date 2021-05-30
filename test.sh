@@ -51,4 +51,5 @@ assert "a = 3; a = 4 + a; a * 10;" 70
 assert "a = 32; b = 23; c = b + 1; a + b + c;" 79
 assert "return 42;" 42
 assert "a = 32; b = 23; c = b + 1; return a + b + c;" 79
+assert "return 3; return 4;" 3
 echo Done!

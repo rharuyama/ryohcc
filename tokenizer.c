@@ -145,6 +145,12 @@ Token* tokenizer(char* p){
       continue;
     }
 
+    if(strncmp(p, "return", 6) == 0 ){
+      cur = new_token(TK_RETURN, cur, "return");
+      p = p + 6;
+      continue;
+    }
+
     if('a' <= *p && *p <= 'z'){
       cur = new_token(TK_IDENT, cur, p);
       cur->len = 1;
@@ -161,12 +167,6 @@ Token* tokenizer(char* p){
     if(*p == ';'){
       cur = new_token(TK_RESERVED, cur, ";");
       p++;
-      continue;
-    }
-
-    if(strncmp(p, "return", 6) == 0 && !is_alnum(p[6])){
-      cur = new_token(TK_RETURN, cur, "return");
-      p = p + 6;
       continue;
     }
 
