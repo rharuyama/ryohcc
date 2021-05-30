@@ -1,7 +1,6 @@
 #!/bin/bash
 
 assert(){
-    echo "--------------------------------"
     input="$1"
     expected="$2"
 
@@ -18,7 +17,8 @@ assert(){
     else
 	echo "$input => $expected expected, but got $actual"
 	exit 1
-    fi   
+    fi 
+    echo "--------------------------------"  
 }
 
 assert "42;" 42
