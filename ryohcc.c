@@ -87,6 +87,13 @@ void codegen(Node* root){
 
   }else if(root->kind == ND_LVAR){
     printf("\tpush [rbp-%d]\n\n", root->offset);
+
+  }else if(root->kind == ND_RETURN){
+    codegen(root->lhs);
+    printf("\tpop rax\n");
+    printf("\tmov rsp, rbp\n");
+    printf("\tpop rbp\n");
+    printf("\tret\n\n");
     
   }else{
     printf("// ERROR HERE in codegen");

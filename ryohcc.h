@@ -11,6 +11,7 @@ typedef enum{
   TK_NUM,
   TK_EOF,
   TK_IDENT,
+  TK_RETURN,
 }TokenKind;
 
 typedef struct Token Token;
@@ -28,6 +29,7 @@ bool at_eof(Token*);
 void show_tokens();
 Token* new_token(TokenKind, Token*, char*);
 Token* tokenizer(char*);
+bool is_alnum(char);
 
 // parser
 
@@ -43,6 +45,7 @@ typedef enum{
   ND_NEQ,
   ND_ASS,
   ND_LVAR,
+  ND_RETURN,
 }NodeKind;
 
 typedef struct Node Node;
