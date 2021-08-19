@@ -81,7 +81,7 @@ void codegen(Node* root){
     codegen(root->rhs);
     if(root->lhs->kind != ND_LVAR){
       fprintf(stderr, "left hand side in assignment is not variable: ");
-      fprintf(stderr, "%d where\n");
+      fprintf(stderr, "%d where\n", root->lhs->kind);
       fprintf(stderr, "ND_NUM = %d\n", ND_NUM);
       fprintf(stderr, "ND_MUL = %d\n", ND_MUL);
       fprintf(stderr, "ND_DIV = %d\n", ND_DIV);

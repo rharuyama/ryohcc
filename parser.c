@@ -35,8 +35,7 @@ LVar* new_lvar(char* name, int len, int offset){
   return newLvar;
 }
 
-void reg(Token* tok){  
-  fprintf(stderr, "new offset: %d\n", new_offset);
+void reg(Token* tok){    
   locals = new_lvar(tok->data, tok->len, new_offset + 8);  
   new_offset += 8;
 }
