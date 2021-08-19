@@ -25,6 +25,35 @@ Node* new_node_lvar(int offset){
   return newNode;
 }
 
+LVar* new_lvar(char* name, int len, int offset){
+  LVar* newLvar = calloc(1, sizeof(LVar));
+  newLvar->next = NULL;
+  newLvar->name = name;
+  newLvar->len = len;
+  newLvar->offset = offset;
+  return newLvar;
+}
+
+void reg(Token* tok){
+  locals = new_lvar(tok->data, tok->len, 8);
+}
+
+bool isin(Token* tok){
+  if(locals == NULL){
+    return false;
+  }else{
+    return true;
+  }    
+}
+
+int offset_value(Token* tok){
+  int offset = locals->offset;
+
+
+
+  return offset;
+}
+
 Node* add();
 
 Node* primary(){
@@ -40,10 +69,15 @@ Node* primary(){
   }
 
   if(isalpha(top->data[0])){ // 変数名の頭しかチェックしていない
-    /* if(isin(top->data)){
-
+    int offset;    
+    if(isin(top)){
+      offset = offset_value(top);
+      Node* node = new_node_lvar(offset);
+      top = top->next;
+      return node;
     }
-     */int offset = (top->data[0] - '`') * 8; // ofsett of 'a' = 8, of 'b' = 16 ...
+    reg(top);
+    offset = offset = (top->data[0] - '`') * 8; // ofsett of 'a' = 8, of 'b' = 16 ...
     Node* node = new_node_lvar(offset);
     top = top->next;  
     return node;

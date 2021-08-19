@@ -71,6 +71,8 @@ extern int code_idx;
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);
 Node* new_node_lvar(int);
+bool isin(Token*);
+int set_val(Token*);
 Node* add();
 Node* primary();
 Node* unary();
