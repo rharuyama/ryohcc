@@ -26,27 +26,28 @@ Node* new_node_lvar(int offset){
   return newNode;
 }
 
-LVar* new_lvar(char* name, int len, int offset){
+void new_lvar(char* name, int len, int offset, LVar** plocals){
   LVar* newLvar = calloc(1, sizeof(LVar));
-  newLvar->next = locals;
+  newLvar->next = *plocals;
   newLvar->name = name;
   newLvar->len = len;
   newLvar->offset = offset;
-  return newLvar;
+  *plocals = newLvar;
 }
 
-void reg(Token* tok){    
-  locals = new_lvar(tok->data, tok->len, new_offset + 8);  
+int reg(Token* tok){  
   new_offset += 8;
+  new_lvar(tok->data, tok->len, new_offset, &locals);  
+  return new_offset;
 }
 
-bool isin(Token* tok){
-  LVar* pl = locals;
-  if(pl == NULL){
+bool isin(Token* tok){    
+  LVar* pl = locals;  
+  if(pl == NULL || tok == NULL){    
     return false;
   }else{
-    while(pl){
-      if((strcmp(tok->data, pl->name)) == 0){
+    while(pl){            
+      if((strncmp(tok->data, pl->name, tok->len)) == 0){    
         return true;
       }else{
         pl = pl->next;
@@ -61,13 +62,13 @@ int offset_value(Token* tok){
   LVar* pl = locals;
 
   while(pl){
-    if((strcmp(tok->data, pl->name)) == 0){
+    if((strncmp(tok->data, pl->name, tok->len)) == 0){
       offset = pl->offset;
+      return offset;
     }else{
       pl = pl->next;
     }
   }
-
   return offset;
 }
 
@@ -89,12 +90,9 @@ Node* primary(){
     int offset;    
     if(isin(top)){
       offset = offset_value(top);
-      Node* node = new_node_lvar(offset);
-      top = top->next;
-      return node;
-    }
-    reg(top);
-    offset = (top->data[0] - '`') * 8; // ofsett of 'a' = 8, of 'b' = 16 ...
+    }else{
+      offset = reg(top);    
+    }    
     Node* node = new_node_lvar(offset);
     top = top->next;  
     return node;
