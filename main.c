@@ -2,6 +2,7 @@
 
 int main(int argc, char** argv){
   char* input = argv[1];
+  locals = NULL;
 
   printf(".intel_syntax noprefix\n");
   printf(".globl main\n");

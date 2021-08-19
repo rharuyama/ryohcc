@@ -57,6 +57,14 @@ struct Node{
   int offset;
 };
 
+typedef struct LVar LVar;
+struct LVar{
+  LVar* next;
+  char* name;  
+  int len;
+  int offset;
+};
+
 extern Node* code[100];
 extern int code_idx;
 
@@ -73,6 +81,7 @@ Node* assign();
 Node* expr();
 void stmt();
 void program();
+LVar* locals;
 
 // ryohcc.c (codegen)
 

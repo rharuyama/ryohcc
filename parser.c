@@ -40,7 +40,10 @@ Node* primary(){
   }
 
   if(isalpha(top->data[0])){ // 変数名の頭しかチェックしていない
-    int offset = (top->data[0] - '`') * 8; // ofsett of 'a' = 8, of 'b' = 16 ...
+    /* if(isin(top->data)){
+
+    }
+     */int offset = (top->data[0] - '`') * 8; // ofsett of 'a' = 8, of 'b' = 16 ...
     Node* node = new_node_lvar(offset);
     top = top->next;  
     return node;
