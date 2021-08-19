@@ -35,7 +35,7 @@ Node* primary(){
       top = top->next;
       return node;
     }
-    fprintf(stderr, "no close parenthesis");
+    fprintf(stderr, "There is no close parenthesis😭\n");
     exit(1);
   }
 
@@ -45,11 +45,14 @@ Node* primary(){
     top = top->next;  
     return node;
   }else if(isdigit(top->data[0])){  
+    if(top->kind != TK_NUM){
+      fprintf(stderr, "Not a number😭\n");
+    }
     Node* node = new_node_num(ND_NUM, top->val);
     top = top->next;
     return node;
   }else{
-    fprintf(stderr, "error in primary() in parser.c: [%s]\n", top->data);    
+    fprintf(stderr, "Error in primary() in parser.c: [%s]😭\n", top->data);    
     Node* node = new_node_lvar(8);
     top = top->next;
     return node;

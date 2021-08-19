@@ -151,10 +151,15 @@ Token* tokenizer(char* p){
       continue;
     }
 
-    if('a' <= *p && *p <= 'z'){
+    if( ('a' <= *p && *p <= 'z' ) || ('A' <= *p && 'Z' <= *p) ){
+      int cnt = 1;
+      while( ('a' <= *(p + cnt) && *(p + cnt) <= 'z' ) || ('A' <= *(p + cnt) && 'Z' <= *(p + cnt)) ){
+        cnt++;
+      }
+
       cur = new_token(TK_IDENT, cur, p);
-      cur->len = 1;
-      p++;
+      cur->len = cnt;
+      p += cnt;
       continue;
     }
 
