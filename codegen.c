@@ -80,7 +80,13 @@ void codegen(Node* root){
   }else if(root->kind == ND_ASS){
     codegen(root->rhs);
     if(root->lhs->kind != ND_LVAR){
-      fprintf(stderr, "left hand side in assignment is not variable");
+      fprintf(stderr, "left hand side in assignment is not variable: ");
+      fprintf(stderr, "%d where\n");
+      fprintf(stderr, "ND_NUM = %d\n", ND_NUM);
+      fprintf(stderr, "ND_MUL = %d\n", ND_MUL);
+      fprintf(stderr, "ND_DIV = %d\n", ND_DIV);
+      fprintf(stderr, "ND_ADD = %d\n", ND_ADD);
+      fprintf(stderr, "ND_SUB = %d\n", ND_SUB);      
     }
     printf("\tpop rax\n");
     printf("\tmov QWORD PTR [rbp-%d], rax\n\n", root->lhs->offset);

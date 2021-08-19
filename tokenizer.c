@@ -10,37 +10,6 @@ bool at_eof(Token* cur){
   }
 }
 
-void show_tokens(){
-  Token* cur = top;
-  fprintf(stderr, "--> %d\n", cur->val);
-  cur = cur->next;
-
-  while(1){
-    if(cur->kind == TK_RESERVED){
-      fprintf(stderr, "--> %s\n", cur->data);
-      cur = cur->next;
-      continue;
-    }
-
-    if(cur->kind == TK_NUM){
-      fprintf(stderr, "--> %d\n", cur->val);
-      cur = cur->next;
-      continue;
-    }
-
-    if(cur->kind == TK_IDENT){
-      fprintf(stderr, "--> %s\n", cur->data);
-      cur = cur->next;
-      continue;
-    }
-
-    if(cur->kind == TK_EOF){
-      fprintf(stderr, "--> EOF\n");
-      break;
-    }
-  }
-}
-
 Token* new_token(TokenKind kind, Token* cur, char* data){
   Token* newTok = calloc(1, sizeof(Token));
   newTok->kind = kind;
@@ -153,7 +122,9 @@ Token* tokenizer(char* p){
 
     if( ('a' <= *p && *p <= 'z' ) || ('A' <= *p && 'Z' <= *p) ){
       int cnt = 1;
-      while( ('a' <= *(p + cnt) && *(p + cnt) <= 'z' ) || ('A' <= *(p + cnt) && 'Z' <= *(p + cnt)) ){
+      while( ('a' <= *(p + cnt) && *(p + cnt) <= 'z' ) 
+          || ('A' <= *(p + cnt) && *(p + cnt) <= 'Z' )
+          || ('0' <= *(p + cnt) && *(p + cnt) <= '9' ) ){
         cnt++;
       }
 
