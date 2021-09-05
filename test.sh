@@ -52,7 +52,7 @@ assert "a = 32; b = 23; c = b + 1; a + b + c;" 79
 assert "return 42;" 42
 assert "a = 32; b = 23; c = b + 1; return a + b + c;" 79
 assert "return 3; return 4;" 3
-assert "foo = 1; bar = 2 + 3; return foo + bar;" 6
-assert "f00 = 1; bar = 2 + 3; return f00 + bar;" 6
+assert "foo = 1; bar = 2 + 3; return foo + baz;" 6
+assert "f00 = 1; bar = 2 + 3; return f00 + baz;" 6
 
 echo Done!
