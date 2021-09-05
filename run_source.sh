@@ -3,7 +3,7 @@
 make clean
 make
 
-./ryohcc "$(cat source)" > target.s
+./ryohcc "$@" > target.s
 
 make target
 ./target

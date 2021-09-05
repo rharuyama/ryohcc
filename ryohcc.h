@@ -87,7 +87,7 @@ Node* relational();
 Node* equality();
 Node* assign();
 Node* expr();
-void stmt();
+Node* stmt();
 void program();
 LVar* locals;
 

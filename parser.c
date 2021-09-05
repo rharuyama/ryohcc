@@ -229,7 +229,7 @@ Node* expr(){
   return assign();
 }
 
-void stmt(){
+Node* stmt(){
   Node* node;
 
   if(strcmp(top->data, "return") == 0){
@@ -275,6 +275,8 @@ void stmt(){
     code[code_idx] = node;
     code_idx++;
   }
+  
+  return node;
 }
 
 void program(){
