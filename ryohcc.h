@@ -38,7 +38,7 @@ typedef enum{
   ND_MUL,
   ND_DIV,
   ND_ADD,
-  ND_SUB,
+ ND_SUB,
   ND_REQ,
   ND_REL,
   ND_EQU,
@@ -46,6 +46,7 @@ typedef enum{
   ND_ASS,
   ND_LVAR,
   ND_RETURN,
+  ND_IF,
 }NodeKind;
 
 typedef struct Node Node;
@@ -55,6 +56,11 @@ struct Node{
   Node* rhs;
   int val;
   int offset;
+
+  // "if" statement
+  Node* cond;
+  Node* then;
+  Node* els;
 };
 
 typedef struct LVar LVar;

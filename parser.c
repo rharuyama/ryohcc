@@ -244,6 +244,35 @@ void stmt(){
     code[code_idx] = node;
     code_idx++;
   }
+
+  if(strcmp(top->data, "if") == 0){
+    top = top->next;
+
+    if(strcmp(top->data, "(") == 1){
+      fprintf(stderr, "No open parenthesis on if statement\n");
+      exit(1);
+    }
+    top = top->next;
+
+    node = new_node(ND_IF, NULL, NULL);
+    node->cond = expr();
+
+    if(strcmp(top->data, ")") == 1){
+      fprintf(stderr, "No close parenthesis on if statement\n");
+      exit(1);
+    }
+    top = top->next;
+
+    node->then = stmt();
+
+    if(strcmp(top->data, "else") == 0){
+      top = top->next;
+      node->els = stmt();
+    }
+
+    code[code_idx] = node;
+    code_idx++;
+  }
 }
 
 void program(){
