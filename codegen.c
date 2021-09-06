@@ -102,8 +102,6 @@ void codegen(Node* root){
     printf("\tret\n\n");
 
   }else if(root->kind == ND_IF){
-    fprintf(stderr, "cond[%d %d %d] -- in codegen\n", root->cond->lhs->val,
-	    root->cond->kind, root->cond->rhs->val);
     codegen(root->cond);
     printf("\tpop rax\n");
     printf("\tcmp rax, 0\n");

@@ -246,8 +246,6 @@ Node* stmt(){
     top = top->next;
     node = new_node(ND_IF, NULL, NULL);
     node->cond = expr();
-    fprintf(stderr, "cond[%d %d %d]\n", node->cond->lhs->val,
-	    node->cond->kind, node->cond->rhs->val);
     
     if(strncmp(top->data, ")", 1) > 0){
       fprintf(stderr, "No close parenthesis on if statement\n");
