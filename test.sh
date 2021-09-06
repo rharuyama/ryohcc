@@ -54,5 +54,6 @@ assert "a = 32; b = 23; c = b + 1; return a + b + c;" 79
 assert "return 3; return 4;" 3
 assert "foo = 1; bar = 2 + 3; return foo + baz;" 6
 assert "f00 = 1; bar = 2 + 3; return f00 + baz;" 6
+assert "if(7 == 7) return 88;" 88
 
 echo Done!

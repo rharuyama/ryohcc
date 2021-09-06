@@ -34,11 +34,11 @@ bool is_alnum(char);
 // parser
 
 typedef enum{
-  ND_NUM = 72,
+  ND_NUM = 100, // for debugging
   ND_MUL,
   ND_DIV,
   ND_ADD,
- ND_SUB,
+  ND_SUB,
   ND_REQ,
   ND_REL,
   ND_EQU,

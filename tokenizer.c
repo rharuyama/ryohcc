@@ -120,6 +120,12 @@ Token* tokenizer(char* p){
       continue;
     }
 
+    if(strncmp(p, "if", 2) == 0){
+      cur = new_token(TK_RESERVED, cur, "if");
+      p += 2;
+      continue;
+    }
+
     if( ('a' <= *p && *p <= 'z' ) || ('A' <= *p && 'Z' <= *p) ){
       int cnt = 1;
       while( ('a' <= *(p + cnt) && *(p + cnt) <= 'z' ) 

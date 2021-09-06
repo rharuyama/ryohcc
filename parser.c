@@ -81,7 +81,7 @@ Node* primary(){
       top = top->next;
       return node;
     }
-    fprintf(stderr, "There is no close parenthesis😭\n");
+    fprintf(stderr, "There is no close parenthesis😭 -- primary()\n");
     exit(1);
   }
 
@@ -236,42 +236,33 @@ Node* stmt(){
     top = top->next;
     node = new_node(ND_RETURN, expr(), NULL);
     code[code_idx] = node;
-    code_idx++;
-  }else{
-    node = expr();
-  }
-
-  if(strcmp(top->data, ";") == 0){
+    code_idx++;    
+  }else if(strncmp(top->data, "if", 2) == 0){
     top = top->next;
-    code[code_idx] = node;
-    code_idx++;
-  }
-
-  if(strcmp(top->data, "if") == 0){
-    top = top->next;
-
-    if(strcmp(top->data, "(") == 1){
+    if(strncmp(top->data, "(", 1) > 0){
       fprintf(stderr, "No open parenthesis on if statement\n");
       exit(1);
     }
     top = top->next;
-
     node = new_node(ND_IF, NULL, NULL);
     node->cond = expr();
-
-    if(strcmp(top->data, ")") == 1){
+    fprintf(stderr, "cond[%d %d %d]\n", node->cond->lhs->val,
+	    node->cond->kind, node->cond->rhs->val);
+    
+    if(strncmp(top->data, ")", 1) > 0){
       fprintf(stderr, "No close parenthesis on if statement\n");
       exit(1);
     }
     top = top->next;
-
     node->then = stmt();
-
-    if(strcmp(top->data, "else") == 0){
-      top = top->next;
-      node->els = stmt();
-    }
-
+    code[code_idx] = node;
+    code_idx++;
+  }else{
+    node = expr();    
+  }
+  
+  if(strcmp(top->data, ";") == 0){
+    top = top->next;
     code[code_idx] = node;
     code_idx++;
   }
