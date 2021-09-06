@@ -55,5 +55,6 @@ assert "return 3; return 4;" 3
 assert "foo = 1; bar = 2 + 3; return foo + baz;" 6
 assert "f00 = 1; bar = 2 + 3; return f00 + baz;" 6
 assert "if(7 == 7) return 88;" 88
+assert "if(7 == 2) 88; else 77;" 77 # returnが付くと途中でリターンしてしまい88になる
 
 echo Done!

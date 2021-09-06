@@ -102,12 +102,24 @@ void codegen(Node* root){
     printf("\tret\n\n");
 
   }else if(root->kind == ND_IF){
-    codegen(root->cond);
-    printf("\tpop rax\n");
-    printf("\tcmp rax, 0\n");
-    printf("\tje .Lend000\n");
-    codegen(root->then);
-    printf(".Lend000:\n");
+    if(root->els == NULL){
+      codegen(root->cond);
+      printf("\tpop rax\n");
+      printf("\tcmp rax, 0\n");
+      printf("\tje .Lend000\n");
+      codegen(root->then);
+      printf(".Lend000:\n\n");
+    }else{
+      codegen(root->cond);
+      printf("\tpop rax\n");
+      printf("\tcmp rax, 0\n");      
+      printf("\tje .Lelse000\n");
+      codegen(root->then);
+      printf("\tjmp .Lend000\n");
+      printf(".Lelse000:\n");
+      codegen(root->els);
+      printf(".Lend000:\n\n");      
+    }
     
   }else{
     printf("// ERROR HERE in codegen");

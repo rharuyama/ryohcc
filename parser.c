@@ -246,13 +246,16 @@ Node* stmt(){
     top = top->next;
     node = new_node(ND_IF, NULL, NULL);
     node->cond = expr();
-    
     if(strncmp(top->data, ")", 1) > 0){
       fprintf(stderr, "No close parenthesis on if statement\n");
       exit(1);
     }
     top = top->next;
     node->then = stmt();
+    if(strncmp(top->data, "else", 4) == 0){
+      top = top->next;
+      node->els = stmt();
+    }
     code[code_idx] = node;
     code_idx++;
   }else{
