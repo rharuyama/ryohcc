@@ -4,9 +4,9 @@ Token* top;
 
 bool at_eof(Token* cur){
   if(cur->kind == TK_EOF){
-    return 1;
+    return true;
   }else{
-    return 0;
+    return false;
   }
 }
 

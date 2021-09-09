@@ -74,6 +74,14 @@ struct LVar{
 extern Node* code[100];
 extern int code_idx;
 
+typedef struct Prog Prog;
+struct Prog{ 
+  Node* node;
+  Prog* next;
+  bool separator;
+};
+extern Prog* prog;
+
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);
 Node* new_node_lvar(int);
@@ -90,6 +98,7 @@ Node* expr();
 Node* stmt();
 void program();
 LVar* locals;
+void push_prog(Prog**, Node*, bool);
 
 // ryohcc.c (codegen)
 

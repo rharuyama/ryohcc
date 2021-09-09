@@ -94,7 +94,8 @@ void codegen(Node* root){
   }else if(root->kind == ND_LVAR){
     printf("\tpush [rbp-%d]\n\n", root->offset);
 
-  }else if(root->kind == ND_RETURN){
+  }else if(root->kind == ND_RETURN){    
+    printf("// v return\n");
     codegen(root->lhs);
     printf("\tpop rax\n");
     printf("\tmov rsp, rbp\n");
@@ -110,6 +111,7 @@ void codegen(Node* root){
       codegen(root->then);
       printf(".Lend000:\n\n");
     }else{
+      printf("// v cond\n");
       codegen(root->cond);
       printf("\tpop rax\n");
       printf("\tcmp rax, 0\n");      

@@ -1,7 +1,5 @@
 #include "ryohcc.h"
 
-Node* code[100];
-int code_idx = 0;
 int new_offset = 0;
 
 Node* new_node(NodeKind kind, Node* lhs, Node* rhs){
@@ -69,6 +67,14 @@ int offset_value(Token* tok){
   }
 
   return offset;
+}
+
+void push_prog(Prog** ptop, Node* node, bool separator){
+  Prog* newProg = calloc(1, sizeof(Prog));
+  newProg->node = node;
+  newProg->next = *ptop;
+  newProg->separator = separator;
+  *ptop = newProg;
 }
 
 Node* add();
@@ -232,11 +238,10 @@ Node* expr(){
 Node* stmt(){
   Node* node;
 
-  if(strcmp(top->data, "return") == 0){
+  if(strncmp(top->data, "return", 6) == 0){
     top = top->next;
     node = new_node(ND_RETURN, expr(), NULL);
-    code[code_idx] = node;
-    code_idx++;    
+
   }else if(strncmp(top->data, "if", 2) == 0){
     top = top->next;
     if(strncmp(top->data, "(", 1) > 0){
@@ -258,6 +263,7 @@ Node* stmt(){
     }
     code[code_idx] = node;
     code_idx++;
+    push_prog(&prog, node, false);
   }else{
     node = expr();    
   }
@@ -266,6 +272,7 @@ Node* stmt(){
     top = top->next;
     code[code_idx] = node;
     code_idx++;
+    push_prog(&prog, node, false);
   }
   
   return node;
