@@ -261,8 +261,6 @@ Node* stmt(){
       top = top->next;
       node->els = stmt();
     }
-    code[code_idx] = node;
-    code_idx++;
     push_prog(&prog, node, false);
   }else{
     node = expr();    
@@ -270,8 +268,6 @@ Node* stmt(){
   
   if(strcmp(top->data, ";") == 0){
     top = top->next;
-    code[code_idx] = node;
-    code_idx++;
     push_prog(&prog, node, false);
   }
   
@@ -282,5 +278,4 @@ void program(){
   while(!at_eof(top)){
     stmt();
   }
-  code[code_idx] = NULL;
 }
