@@ -77,6 +77,15 @@ void push_prog(Prog** ptop, Node* node, bool separator){
   *ptop = newProg;
 }
 
+void skip(char* s, int n, Node* node, bool push){
+  if(strncmp(top->data, s, n) == 0){
+    top = top->next;
+    if(push){
+      push_prog(&prog, node, false);
+    }
+  }
+}
+
 Node* add();
 
 Node* primary(){
@@ -235,14 +244,18 @@ Node* expr(){
   return assign();
 }
 
+bool in_if = true;
+
 Node* stmt(){
   Node* node;
 
-  if(strncmp(top->data, "return", 6) == 0){
+  if(strncmp(top->data, "return", 6) == 0){    
     top = top->next;
     node = new_node(ND_RETURN, expr(), NULL);
+    skip(";", 1, node, in_if); // push? == false
 
   }else if(strncmp(top->data, "if", 2) == 0){
+    in_if = false;
     top = top->next;
     if(strncmp(top->data, "(", 1) > 0){
       fprintf(stderr, "No open parenthesis on if statement\n");
@@ -262,13 +275,10 @@ Node* stmt(){
       node->els = stmt();
     }
     push_prog(&prog, node, false);
+    
   }else{
-    node = expr();    
-  }
-  
-  if(strcmp(top->data, ";") == 0){
-    top = top->next;
-    push_prog(&prog, node, false);
+    node = expr();
+    skip(";", 1, node, in_if);
   }
   
   return node;
