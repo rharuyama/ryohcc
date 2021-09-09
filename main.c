@@ -30,8 +30,6 @@ int main(int argc, char** argv){
   }
 
   while(prog_in_order){
-    fprintf(stderr, " %d\n", prog_in_order->node->kind);
-    printf("// p:%p\n", prog_in_order);
     codegen(prog_in_order->node);
     printf("\tpop rax\n\n");
     prog_in_order = prog_in_order->next;
