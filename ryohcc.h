@@ -25,11 +25,8 @@ struct Token{
 
 extern Token* top;
 
-bool at_eof(Token*);
 void show_tokens();
-Token* new_token(TokenKind, Token*, char*);
 Token* tokenizer(char*);
-bool is_alnum(char);
 
 // parser
 
@@ -82,20 +79,6 @@ struct Prog{
 };
 extern Prog* prog;
 
-Node* new_node(NodeKind, Node*, Node*);
-Node* new_node_num(NodeKind, int);
-Node* new_node_lvar(int);
-bool isin(Token*);
-int set_val(Token*);
-Node* add();
-Node* primary();
-Node* unary();
-Node* mul();
-Node* relational();
-Node* equality();
-Node* assign();
-Node* expr();
-Node* stmt();
 void program();
 LVar* locals;
 void push_prog(Prog**, Node*, bool);

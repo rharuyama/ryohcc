@@ -1,4 +1,5 @@
 #include "ryohcc.h"
+bool at_eof(Token*);
 
 int new_offset = 0;
 
