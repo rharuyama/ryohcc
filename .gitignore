@@ -58,4 +58,10 @@ target
 *.s
 *.out
 
+<<<<<<< HEAD
 source
+=======
+source
+
+\#*#
+>>>>>>> 59f1558 (replace if-else in codegen.c with switch-case)

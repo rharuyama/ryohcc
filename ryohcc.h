@@ -80,7 +80,8 @@ struct LVar{
 extern Node* code[100][100];
 extern int code_idx;
 extern int block;
-extern void compound_stmt();
+extern Node* compound_stmt();
+extern void prog();
 
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);
@@ -96,7 +97,6 @@ Node* equality();
 Node* assign();
 Node* expr();
 Node* stmt();
-void program();
 LVar* locals;
 
 // ryohcc.c (codegen)

@@ -284,6 +284,13 @@ Node* stmt(){
   return node;
 }
 
+void prog(){
+  while(!at_eof(top)){
+    stmt();
+  }
+  code[block][code_idx] = NULL;
+}
+
 Node* compound_stmt(){
   Node* node;
   while(strncmp(top->data, "}", 1) != 0){

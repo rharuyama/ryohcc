@@ -11,26 +11,27 @@ int main(int argc, char** argv){
   top = tokenizer(input); // Token* top にトークンの列がセットされる
 
   // parser
-  compound_stmt();
+  //  compound_stmt();
+  prog();
 
   // prorogue
   printf("\tpush rbp\n");
   printf("\tmov rbp, rsp\n");
   printf("\tsub rsp, 208\n\n");
 
-  while(){
-    codegen(compound_stmt());
-    printf("\tpop rax\n\n");          
-  }
-  
-  /* int b = 0; */
-  /* int c = 0; */
-  /* for(b = 0; code[b][c]; b++){ */
-  /*   for(c = 0; code[b][c]; c++){ */
-  /*     codegen(code[b][c]); */
-  /*     printf("\tpop rax\n\n");       */
-  /*   } */
+  /* while(){ */
+  /*   codegen(compound_stmt()); */
+  /*   printf("\tpop rax\n\n");           */
   /* } */
+
+  int b = 0;
+  int c = 0;
+  for(b = 0; code[b][c]; b++){
+    for(c = 0; code[b][c]; c++){
+      codegen(code[b][c]);
+      printf("\tpop rax\n\n");
+    }
+  }
 
   // epilogue
   printf("\tmov rsp, rbp\n");
