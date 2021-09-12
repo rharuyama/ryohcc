@@ -17,7 +17,7 @@ typedef enum{
 typedef struct Token Token;
 struct Token{
   int val;
-  char* data;
+  const char* data;
   TokenKind kind;
   Token* next;
   int len;
@@ -26,7 +26,7 @@ struct Token{
 extern Token* top;
 
 void show_tokens();
-Token* tokenizer(char*);
+Token* tokenizer(const char*);
 
 // parser
 
@@ -63,7 +63,7 @@ struct Node{
 typedef struct LVar LVar;
 struct LVar{
   LVar* next;
-  char* name;  
+  const char* name;  
   int len;
   int offset;
 };

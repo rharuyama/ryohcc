@@ -5,7 +5,7 @@ int code_idx = 0;
 Prog* prog = NULL;
 
 int main(int argc, char** argv){
-  char* input = argv[1];
+  const char* input = argv[1];
   locals = NULL;
 
   printf(".intel_syntax noprefix\n");

@@ -10,7 +10,7 @@ bool at_eof(Token* cur){
   }
 }
 
-Token* new_token(TokenKind kind, Token* cur, char* data){
+Token* new_token(TokenKind kind, Token* cur, const char* data){
   Token* newTok = calloc(1, sizeof(Token));
   newTok->kind = kind;
   newTok->data = data;
@@ -25,7 +25,7 @@ bool is_alnum(char c){
       ||  (c == '_');
 }
 
-Token* tokenizer(char* p){
+Token* tokenizer(const char* p){
   Token head;
   head.next = NULL;
   Token* cur = &head;

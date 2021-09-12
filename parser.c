@@ -25,7 +25,7 @@ Node* new_node_lvar(int offset){
   return newNode;
 }
 
-LVar* new_lvar(char* name, int len, int offset){
+LVar* new_lvar(const char* name, int len, int offset){
   LVar* newLvar = calloc(1, sizeof(LVar));
   newLvar->next = locals;
   newLvar->name = name;
@@ -78,7 +78,7 @@ void push_prog(Prog** ptop, Node* node, bool separator){
   *ptop = newProg;
 }
 
-void skip(char* s, int n, Node* node, bool push){
+void skip(const char* s, int n, Node* node, bool push){
   if(strncmp(top->data, s, n) == 0){
     top = top->next;
     if(push){
