@@ -19,7 +19,7 @@ jobs:
         run: docker build -t ryohcc .
 
       - name: Run Docker container & build
-        run: docker run -it -d -v $(pwd):/home/ --name ryohcc ryohcc-image make build
+        run: docker run -it -d -v $(pwd):/home/ --name ryohcc ryohcc-image
 
       - name: See logs
         run: docker logs -f ryohcc
