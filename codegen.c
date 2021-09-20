@@ -1,21 +1,18 @@
 #include "ryohcc.h"
 
 void codegen(Node* root){
-  switch (root->kind){
-  case ND_NUM:
+  if(root->kind == ND_NUM){
     printf("\tpush %d\n\n", root->val);
-    break;
 
-  case ND_MUL:
+  }else if(root->kind == ND_MUL){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
     printf("\tpop rax\n");
     printf("\timul rax, rdi\n");
     printf("\tpush rax\n\n");
-    break;
-
-  case ND_DIV:
+    
+  }else if(root->kind == ND_DIV){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
@@ -23,27 +20,24 @@ void codegen(Node* root){
     printf("\tcqo\n");
     printf("\tidiv rax, rdi\n");
     printf("\tpush rax\n\n");
-    break;
-
-  case ND_ADD:
+    
+  }else if(root->kind == ND_ADD){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
     printf("\tpop rax\n");
     printf("\tadd rax, rdi\n");
     printf("\tpush rax\n\n");
-    break;
-
-  case ND_SUB:
+    
+  }else if(root->kind == ND_SUB){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
     printf("\tpop rax\n");
     printf("\tsub rax, rdi\n");
     printf("\tpush rax\n\n");
-    break;
-
-  case ND_REQ:
+    
+  }else if(root->kind == ND_REQ){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
@@ -52,9 +46,8 @@ void codegen(Node* root){
     printf("\tsetle al\n");
     printf("\tmovzx rax, al\n");
     printf("\tpush rax\n\n");
-    break;
 
-  case ND_REL:
+  }else if(root->kind == ND_REL){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
@@ -63,9 +56,8 @@ void codegen(Node* root){
     printf("\tsetl al\n");
     printf("\tmovzx rax, al\n");
     printf("\tpush rax\n\n");
-    break;
 
-  case ND_EQU:
+  }else if(root->kind == ND_EQU){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
@@ -74,9 +66,8 @@ void codegen(Node* root){
     printf("\tsete al\n");
     printf("\tmovzx rax, al\n");
     printf("\tpush rax\n\n");
-    break;
 
-  case ND_NEQ:
+  }else if(root->kind == ND_NEQ){
     codegen(root->lhs);
     codegen(root->rhs);
     printf("\tpop rdi\n");
@@ -85,9 +76,8 @@ void codegen(Node* root){
     printf("\tsetne al\n");
     printf("\tmovzx rax, al\n");
     printf("\tpush rax\n\n");
-    break;
 
-  case ND_ASS:
+  }else if(root->kind == ND_ASS){
     codegen(root->rhs);
     if(root->lhs->kind != ND_LVAR){
       fprintf(stderr, "left hand side in assignment is not variable: ");
@@ -100,22 +90,19 @@ void codegen(Node* root){
     }
     printf("\tpop rax\n");
     printf("\tmov QWORD PTR [rbp-%d], rax\n\n", root->lhs->offset);
-    break;
 
-  case ND_LVAR:
+  }else if(root->kind == ND_LVAR){
     printf("\tpush [rbp-%d]\n\n", root->offset);
-    break;
 
-  case ND_RETURN:
+  }else if(root->kind == ND_RETURN){    
     printf("// v return\n");
     codegen(root->lhs);
     printf("\tpop rax\n");
     printf("\tmov rsp, rbp\n");
     printf("\tpop rbp\n");
     printf("\tret\n\n");
-    break;
 
-  case ND_IF:
+  }else if(root->kind == ND_IF){
     if(root->els == NULL){
       codegen(root->cond);
       printf("\tpop rax\n");
@@ -135,11 +122,8 @@ void codegen(Node* root){
       codegen(root->els);
       printf(".Lend000:\n\n");      
     }
-    break;
-
-  default:
+    
+  }else{
     printf("// ERROR HERE in codegen");
-    break;
   }
-  return;
 }
