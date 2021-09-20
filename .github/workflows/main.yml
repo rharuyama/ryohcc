@@ -16,10 +16,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t ryohcc .
+        run: sudo docker build -t ryohcc .
 
       - name: Run Docker container & build
-        run: docker run -it -d -v $(pwd):/home/ --name ryohcc ryohcc-image
+        run: docker run -it -d -v $(pwd):/home/ --name ryohcc ryohcc-image make test
 
       - name: See logs
         run: docker logs -f ryohcc
