@@ -9,21 +9,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: sudo docker build -t ryohcc .
-
-      - name: Run Docker container & build
-        run: docker run -it -d -v $(pwd):/home/ --name ryohcc ryohcc-image make test
-
-      - name: See logs
-        run: docker logs -f ryohcc
-
   test:
     runs-on: ubuntu-latest
 
