@@ -18,8 +18,8 @@ int main(int argc, char** argv){
   printf("\tmov rbp, rsp\n");
   printf("\tsub rsp, 208\n\n");
   
-  for(int i = 0; code[i]; i++){
-    codegen(code[i]);
+  for(int i = 0; code[0][i]; i++){
+    codegen(code[block][i]);
     printf("\tpop rax\n\n");
   }
 

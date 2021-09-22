@@ -71,8 +71,9 @@ struct LVar{
   int offset;
 };
 
-extern Node* code[100];
+extern Node* code[100][100];
 extern int code_idx;
+extern int block;
 
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);

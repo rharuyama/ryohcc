@@ -1,7 +1,8 @@
 #include "ryohcc.h"
 
-Node* code[100];
+Node* code[100][100];
 int code_idx = 0;
+int block = 0;
 int new_offset = 0;
 
 Node* new_node(NodeKind kind, Node* lhs, Node* rhs){
@@ -235,7 +236,7 @@ Node* stmt(){
   if(strcmp(top->data, "return") == 0){
     top = top->next;
     node = new_node(ND_RETURN, expr(), NULL);
-    code[code_idx] = node;
+    code[block][code_idx] = node;
     code_idx++;    
   }else if(strncmp(top->data, "if", 2) == 0){
     top = top->next;
@@ -256,7 +257,7 @@ Node* stmt(){
       top = top->next;
       node->els = stmt();
     }
-    code[code_idx] = node;
+    code[block][code_idx] = node;
     code_idx++;
   }else{
     node = expr();    
@@ -264,7 +265,7 @@ Node* stmt(){
   
   if(strcmp(top->data, ";") == 0){
     top = top->next;
-    code[code_idx] = node;
+    code[block][code_idx] = node;
     code_idx++;
   }
   
@@ -275,5 +276,5 @@ void program(){
   while(!at_eof(top)){
     stmt();
   }
-  code[code_idx] = NULL;
+  code[block][code_idx] = NULL;
 }
