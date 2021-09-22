@@ -74,6 +74,7 @@ struct LVar{
 extern Node* code[100][100];
 extern int code_idx;
 extern int block;
+extern void compound_stmt();
 
 Node* new_node(NodeKind, Node*, Node*);
 Node* new_node_num(NodeKind, int);

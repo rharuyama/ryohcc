@@ -11,7 +11,7 @@ int main(int argc, char** argv){
   top = tokenizer(input); // Token* top にトークンの列がセットされる
 
   // parser
-  program();
+  compound_stmt();
 
   // prorogue
   printf("\tpush rbp\n");

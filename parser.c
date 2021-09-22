@@ -274,7 +274,21 @@ Node* stmt(){
 
 void program(){
   while(!at_eof(top)){
+    if(strncmp(top->data, "}", 1) == 0){
+      break;
+    }
     stmt();
+  }  
+  code[block][code_idx] = NULL;
+}
+
+
+void compound_stmt(){
+  while(strncmp(top->data, "}", 1) != 0){
+    if(strncmp(top->data, "{", 1) == 0){
+      top = top->next;
+      program();
+    }
   }
   code[block][code_idx] = NULL;
 }
