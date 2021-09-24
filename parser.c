@@ -230,6 +230,13 @@ Node* expr(){
   return assign();
 }
 
+// stmt = return expr ;
+//      | expr ;
+//      | { cmpd_stmt
+// cmpd_stmt = stmt* }
+
+Node* compound_stmt();
+
 Node* stmt(){
   Node* node;
 
@@ -259,6 +266,11 @@ Node* stmt(){
     }
     code[block][code_idx] = node;
     code_idx++;
+  }else if(strncmp(top->data, "{", 1) == 0){
+    top = top->next;
+    node = new_node(ND_BLOCK, NULL, NULL);
+    node->body = compound_stmt();
+    
   }else{
     node = expr();    
   }
@@ -272,23 +284,13 @@ Node* stmt(){
   return node;
 }
 
-void program(){
-  while(!at_eof(top)){
-    if(strncmp(top->data, "}", 1) == 0){
-      break;
-    }
-    stmt();
-  }  
-  code[block][code_idx] = NULL;
-}
-
-
-void compound_stmt(){
+Node* compound_stmt(){
+  Node* node;
   while(strncmp(top->data, "}", 1) != 0){
     if(strncmp(top->data, "{", 1) == 0){
       top = top->next;
-      program();
+      node = stmt();
     }
   }
-  code[block][code_idx] = NULL;
+  return node;
 }

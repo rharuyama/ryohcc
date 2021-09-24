@@ -47,6 +47,8 @@ typedef enum{
   ND_LVAR,
   ND_RETURN,
   ND_IF,
+  ND_BLOCK,
+  ND_EXPR_STMT,
 }NodeKind;
 
 typedef struct Node Node;
@@ -61,6 +63,10 @@ struct Node{
   Node* cond;
   Node* then;
   Node* els;
+
+  // block
+  Node* body;
+  Node* next;
 };
 
 typedef struct LVar LVar;
